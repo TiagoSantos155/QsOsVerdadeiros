@@ -7,7 +7,9 @@
     </top>
     <center>
         <VBox spacing="15" alignment="CENTER">
+            <!-- Botão para abrir o painel de administração -->
             <Button text="Admin" onAction="#showAdminPanel" style="-fx-font-size: 16px; -fx-pref-width: 200px;"/>
+            <!-- Botão para abrir o painel do coordenador -->
             <Button text="Coordenador de Curso" onAction="#showCoordinatorPanel" style="-fx-font-size: 16px; -fx-pref-width: 200px;"/>
         </VBox>
     </center>

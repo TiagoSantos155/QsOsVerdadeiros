@@ -9,22 +9,27 @@
         <VBox spacing="15" alignment="CENTER">
             <Label text="Gerenciamento de Semestres"/>
             <HBox spacing="10">
-                <TextField fx:id="inicioSemestre1" promptText="Início Semestre 1"/>
-                <TextField fx:id="fimSemestre1" promptText="Fim Semestre 1"/>
+                <DatePicker fx:id="inicioSemestre1" promptText="Início Semestre 1"/>
+                <DatePicker fx:id="fimSemestre1" promptText="Fim Semestre 1"/>
                 <Button text="Definir" onAction="#definirSemestre1"/>
             </HBox>
             <HBox spacing="10">
-                <TextField fx:id="inicioSemestre2" promptText="Início Semestre 2"/>
-                <TextField fx:id="fimSemestre2" promptText="Fim Semestre 2"/>
+                <DatePicker fx:id="inicioSemestre2" promptText="Início Semestre 2"/>
+                <DatePicker fx:id="fimSemestre2" promptText="Fim Semestre 2"/>
                 <Button text="Definir" onAction="#definirSemestre2"/>
             </HBox>
             <Label text="Gerenciamento de Épocas de Exames"/>
             <HBox spacing="10">
                 <ComboBox fx:id="tipoEpoca" promptText="Tipo de Época"/>
-                <TextField fx:id="dataInicioEpoca" promptText="Data Início"/>
-                <TextField fx:id="dataFimEpoca" promptText="Data Fim"/>
+                <DatePicker fx:id="dataInicioEpoca" promptText="Data Início"/>
+                <DatePicker fx:id="dataFimEpoca" promptText="Data Fim"/>
                 <Button text="Adicionar" onAction="#adicionarEpoca"/>
             </HBox>
         </VBox>
     </center>
+    <bottom>
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <Button text="Voltar" onAction="#voltar"/>
+        </HBox>
+    </bottom>
 </BorderPane>

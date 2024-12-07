@@ -1,34 +1,67 @@
 package org.example.testejavafxmaven;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class MainController {
+
     private Stage stage;
 
-    public void initialize(Stage stage) {
+    // Método para configurar o Stage
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public void showAdminPanel() {
-        loadScene("/org/example/testejavafxmaven/admin_panel.fxml", "Painel do Administrador");
+    // Método para carregar uma nova cena
+    private void loadScene(String fxmlPath, String title) {
+        // Verifica se o Stage foi configurado corretamente
+        if (this.stage == null) {
+            System.err.println("Erro crítico: o Stage não foi configurado no controlador antes de carregar a cena.");
+            throw new IllegalStateException("Stage não configurado no controlador.");
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Scene scene = new Scene(loader.load());
+
+            // Atualiza o Stage com a nova cena
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar o arquivo FXML: " + fxmlPath);
+            e.printStackTrace();
+        }
     }
 
+    // Ação para o botão "Admin"
+    @FXML
+    public void showAdminPanel() {
+        loadScene("/org/example/testejavafxmaven/admin_panel.fxml", "Painel de Administração");
+    }
+
+    // Ação para o botão "Coordenador de Curso"
+    @FXML
     public void showCoordinatorPanel() {
         loadScene("/org/example/testejavafxmaven/coordinator_panel.fxml", "Painel do Coordenador");
     }
 
-    private void loadScene(String fxmlPath, String title) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Scene scene = new Scene(loader.load());
-            stage.setScene(scene);
-            stage.setTitle(title);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+    // Ação para o botão de logout
+    @FXML
+    public void logout() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("Tem certeza que deseja sair?");
+        alert.setContentText("Você será desconectado do sistema.");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            System.exit(0);
         }
     }
 }
-

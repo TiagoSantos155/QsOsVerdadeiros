@@ -15,4 +15,10 @@
             <Button text="Listar UCs" onAction="#listarUCs"/>
         </VBox>
     </center>
+    <right>
+        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <Label text="Resultados" style="-fx-font-size: 16px;"/>
+            <ListView fx:id="listView" />
+        </VBox>
+    </right>
 </BorderPane>
