@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.MainController">
+    <top>
+        <Label text="Sistema de Gestão Acadêmica" style="-fx-font-size: 24px; -fx-padding: 10;"/>
+    </top>
+    <center>
+        <VBox spacing="15" alignment="CENTER">
+            <Button text="Admin" onAction="#showAdminPanel" style="-fx-font-size: 16px; -fx-pref-width: 200px;"/>
+            <Button text="Coordenador de Curso" onAction="#showCoordinatorPanel" style="-fx-font-size: 16px; -fx-pref-width: 200px;"/>
+        </VBox>
+    </center>
+</BorderPane>
