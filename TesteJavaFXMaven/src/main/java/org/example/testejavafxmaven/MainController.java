@@ -20,7 +20,6 @@ public class MainController {
 
     // Método para carregar uma nova cena
     private void loadScene(String fxmlPath, String title) {
-        // Verifica se o Stage foi configurado corretamente
         if (this.stage == null) {
             System.err.println("Erro crítico: o Stage não foi configurado no controlador antes de carregar a cena.");
             throw new IllegalStateException("Stage não configurado no controlador.");
@@ -30,7 +29,12 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Scene scene = new Scene(loader.load());
 
-            // Atualiza o Stage com a nova cena
+            // Obtém o controlador da nova cena
+            Object controller = loader.getController();
+            if (controller instanceof MainController) {
+                ((MainController) controller).setStage(stage); // Configura o Stage no novo controlador
+            }
+
             stage.setScene(scene);
             stage.setTitle(title);
             stage.show();
@@ -40,19 +44,16 @@ public class MainController {
         }
     }
 
-    // Ação para o botão "Admin"
     @FXML
     public void showAdminPanel() {
         loadScene("/org/example/testejavafxmaven/admin_panel.fxml", "Painel de Administração");
     }
 
-    // Ação para o botão "Coordenador de Curso"
     @FXML
     public void showCoordinatorPanel() {
         loadScene("/org/example/testejavafxmaven/coordinator_panel.fxml", "Painel do Coordenador");
     }
 
-    // Ação para o botão de logout
     @FXML
     public void logout() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

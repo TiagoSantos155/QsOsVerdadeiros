@@ -61,13 +61,18 @@ public class AdminPanelController {
     @FXML
     public void voltar() {
         try {
-            // Carregar a página de login (Login.fxml)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/Login.fxml"));
             Scene scene = new Scene(loader.load());
 
-            // Obter o Stage atual e definir a nova cena
-            Stage stage = (Stage) tipoEpoca.getScene().getWindow(); // Obter o Stage de qualquer controle
-            stage.setScene(scene);
+            // Obter o controlador da nova cena
+            MainController mainController = loader.getController();
+
+            // Configurar o Stage no controlador
+            Stage currentStage = (Stage) tipoEpoca.getScene().getWindow();
+            mainController.setStage(currentStage);
+
+            // Configurar a nova cena no Stage
+            currentStage.setScene(scene);
         } catch (IOException e) {
             System.err.println("Erro ao voltar para a tela de login.");
             e.printStackTrace();

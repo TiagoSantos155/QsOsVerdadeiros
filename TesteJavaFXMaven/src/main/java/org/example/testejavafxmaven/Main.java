@@ -12,19 +12,17 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Carrega o arquivo FXML principal
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/Login.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
 
-            // Obtém o controlador do FXML
+            // Configurar o controlador inicial
             MainController mainController = fxmlLoader.getController();
             if (mainController != null) {
-                mainController.setStage(primaryStage); // Passa o Stage para o controlador
+                mainController.setStage(primaryStage);
             } else {
                 System.err.println("Erro: O controlador do FXML é nulo.");
             }
 
-            // Configura e exibe o Stage principal
             primaryStage.setTitle("Sistema de Gestão Acadêmica");
             primaryStage.setScene(scene);
             primaryStage.show();

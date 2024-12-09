@@ -1,35 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.AdminPanelController">
+
+    <!-- Cabeçalho superior -->
     <top>
-        <Label text="Painel do Administrador" style="-fx-font-size: 20px; -fx-padding: 10;"/>
+        <Label text="Painel do Administrador"
+               style="-fx-font-size: 22px; -fx-padding: 15; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
+               alignment="CENTER"/>
     </top>
+
+    <!-- Conteúdo central -->
     <center>
-        <VBox spacing="15" alignment="CENTER">
-            <Label text="Gerenciamento de Semestres"/>
-            <HBox spacing="10">
-                <DatePicker fx:id="inicioSemestre1" promptText="Início Semestre 1"/>
-                <DatePicker fx:id="fimSemestre1" promptText="Fim Semestre 1"/>
-                <Button text="Definir" onAction="#definirSemestre1"/>
-            </HBox>
-            <HBox spacing="10">
-                <DatePicker fx:id="inicioSemestre2" promptText="Início Semestre 2"/>
-                <DatePicker fx:id="fimSemestre2" promptText="Fim Semestre 2"/>
-                <Button text="Definir" onAction="#definirSemestre2"/>
-            </HBox>
-            <Label text="Gerenciamento de Épocas de Exames"/>
-            <HBox spacing="10">
-                <ComboBox fx:id="tipoEpoca" promptText="Tipo de Época"/>
-                <DatePicker fx:id="dataInicioEpoca" promptText="Data Início"/>
-                <DatePicker fx:id="dataFimEpoca" promptText="Data Fim"/>
-                <Button text="Adicionar" onAction="#adicionarEpoca"/>
-            </HBox>
+        <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+
+            <!-- Gerenciamento de Semestres -->
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Gerenciamento de Semestres"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+
+                <!-- Semestre 1 -->
+                <HBox spacing="15" alignment="CENTER">
+                    <DatePicker fx:id="inicioSemestre1" promptText="Início Semestre 1" />
+                    <DatePicker fx:id="fimSemestre1" promptText="Fim Semestre 1" />
+                    <Button text="Definir" onAction="#definirSemestre1"
+                            style="-fx-font-size: 14px; -fx-pref-width: 100px;" />
+                </HBox>
+
+                <!-- Semestre 2 -->
+                <HBox spacing="15" alignment="CENTER">
+                    <DatePicker fx:id="inicioSemestre2" promptText="Início Semestre 2" />
+                    <DatePicker fx:id="fimSemestre2" promptText="Fim Semestre 2" />
+                    <Button text="Definir" onAction="#definirSemestre2"
+                            style="-fx-font-size: 14px; -fx-pref-width: 100px;" />
+                </HBox>
+            </VBox>
+
+            <!-- Gerenciamento de Épocas de Exames -->
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Gerenciamento de Épocas de Exames"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+
+                <HBox spacing="15" alignment="CENTER">
+                    <ComboBox fx:id="tipoEpoca" promptText="Tipo de Época" />
+                    <DatePicker fx:id="dataInicioEpoca" promptText="Data Início" />
+                    <DatePicker fx:id="dataFimEpoca" promptText="Data Fim" />
+                    <Button text="Adicionar" onAction="#adicionarEpoca"
+                            style="-fx-font-size: 14px; -fx-pref-width: 100px;" />
+                </HBox>
+            </VBox>
+
         </VBox>
     </center>
+
+    <!-- Rodapé -->
     <bottom>
-        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
-            <Button text="Voltar" onAction="#voltar"/>
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #ecf0f1;">
+            <Button text="Voltar" onAction="#voltar"
+                    style="-fx-font-size: 14px; -fx-pref-width: 120px;" />
         </HBox>
     </bottom>
+
 </BorderPane>

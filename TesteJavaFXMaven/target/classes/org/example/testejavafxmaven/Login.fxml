@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.MainController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.MainController"
+            style="-fx-background-color: linear-gradient(to bottom, #ffffff, #e6e6e6); -fx-padding: 20;">
     <top>
-        <Label text="Sistema de Gestão Acadêmica" style="-fx-font-size: 24px; -fx-padding: 10;"/>
+        <Label text="Sistema de Gestão Acadêmica"
+               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-padding: 15;"/>
     </top>
     <center>
-        <VBox spacing="15" alignment="CENTER">
+        <VBox spacing="20" alignment="CENTER"
+              style="-fx-background-color: #ecf0f1; -fx-padding: 20; -fx-border-color: #bdc3c7; -fx-border-width: 2; -fx-border-radius: 10; -fx-background-radius: 10;">
             <!-- Botão para abrir o painel de administração -->
-            <Button text="Admin" onAction="#showAdminPanel" style="-fx-font-size: 16px; -fx-pref-width: 200px;"/>
+            <Button text="Admin"
+                    onAction="#showAdminPanel"
+                    style="-fx-font-size: 18px; -fx-pref-width: 220px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 10;"/>
             <!-- Botão para abrir o painel do coordenador -->
-            <Button text="Coordenador de Curso" onAction="#showCoordinatorPanel" style="-fx-font-size: 16px; -fx-pref-width: 200px;"/>
+            <Button text="Coordenador de Curso"
+                    onAction="#showCoordinatorPanel"
+                    style="-fx-font-size: 18px; -fx-pref-width: 220px; -fx-background-color: #1abc9c; -fx-text-fill: white; -fx-background-radius: 10;"/>
         </VBox>
     </center>
 </BorderPane>
