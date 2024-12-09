@@ -46,7 +46,7 @@ public class MainController {
 
     @FXML
     public void showAdminPanel() {
-        loadScene("/org/example/testejavafxmaven/admin_panel.fxml", "Painel de Administração");
+        loadScene("/org/example/testejavafxmaven/AdminLogin.fxml", "Painel de Administração");
     }
 
     @FXML
