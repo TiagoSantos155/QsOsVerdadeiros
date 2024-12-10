@@ -9,16 +9,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController {
+public class MainController implements Main.StageAwareController {
 
     private Stage stage;
 
-    // Método para configurar o Stage
+    @Override
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    // Método para carregar uma nova cena
     private void loadScene(String fxmlPath, String title) {
         if (this.stage == null) {
             System.err.println("Erro crítico: o Stage não foi configurado no controlador antes de carregar a cena.");
@@ -29,10 +28,9 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Scene scene = new Scene(loader.load());
 
-            // Obtém o controlador da nova cena
             Object controller = loader.getController();
-            if (controller instanceof MainController) {
-                ((MainController) controller).setStage(stage); // Configura o Stage no novo controlador
+            if (controller instanceof Main.StageAwareController) {
+                ((Main.StageAwareController) controller).setStage(stage);
             }
 
             stage.setScene(scene);

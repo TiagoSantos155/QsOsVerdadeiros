@@ -10,33 +10,54 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AdminLoginController {
+public class AdminLoginController implements Main.StageAwareController {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
 
-    // Credenciais fictícias para validação (em um sistema real, use uma base de dados ou outro método seguro)
-    private static final String ADMIN_USERNAME = "admin";
-    private static final String ADMIN_PASSWORD = "1234";
+    private Stage stage;
+
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    private void loadScene(String fxmlPath, String title) {
+        if (stage == null) {
+            System.err.println("Erro crítico: o Stage não foi configurado no controlador antes de carregar a cena.");
+            throw new IllegalStateException("Stage não configurado no controlador.");
+        }
+
+        try {
+            // Verifique o caminho do FXML
+            System.out.println("Tentando carregar o arquivo FXML: " + fxmlPath);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Scene scene = new Scene(loader.load());
+
+            // Configura o Stage no controlador da próxima cena
+            Object controller = loader.getController();
+            if (controller instanceof Main.StageAwareController) {
+                ((Main.StageAwareController) controller).setStage(stage);
+            }
+
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Erro ao carregar o arquivo FXML: " + fxmlPath);
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     public void validarCredenciais() {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (ADMIN_USERNAME.equals(username) && ADMIN_PASSWORD.equals(password)) {
-            try {
-                // Carregar a próxima tela (AdminPanel.fxml)
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/AdminPanel.fxml"));
-                Scene scene = new Scene(loader.load());
-
-                // Obter o Stage atual e definir a nova cena
-                Stage stage = (Stage) usernameField.getScene().getWindow();
-                stage.setScene(scene);
-            } catch (IOException e) {
-                exibirMensagemErro("Erro ao carregar o painel de administrador.");
-                e.printStackTrace();
-            }
+        if ("admin".equals(username) && "1234".equals(password)) {
+            loadScene("/org/example/testejavafxmaven/admin_panel.fxml", "Painel do Administrador");
         } else {
             exibirMensagemErro("Usuário ou senha inválidos. Tente novamente.");
         }
@@ -44,18 +65,7 @@ public class AdminLoginController {
 
     @FXML
     public void voltar() {
-        try {
-            // Carregar a página anterior (Menu ou Tela de Escolha)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/Login.fxml"));
-            Scene scene = new Scene(loader.load());
-
-            // Obter o Stage atual e definir a nova cena
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(scene);
-        } catch (IOException e) {
-            exibirMensagemErro("Erro ao voltar para a tela inicial.");
-            e.printStackTrace();
-        }
+        loadScene("/org/example/testejavafxmaven/Login.fxml", "Tela Inicial");
     }
 
     private void exibirMensagemErro(String mensagem) {

@@ -9,18 +9,21 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+    public interface StageAwareController {
+        void setStage(Stage stage);
+    }
+
     @Override
     public void start(Stage primaryStage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/Login.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
 
-            // Configurar o controlador inicial
-            MainController mainController = fxmlLoader.getController();
-            if (mainController != null) {
-                mainController.setStage(primaryStage);
+            Object controller = fxmlLoader.getController();
+            if (controller instanceof StageAwareController) {
+                ((StageAwareController) controller).setStage(primaryStage);
             } else {
-                System.err.println("Erro: O controlador do FXML é nulo.");
+                System.err.println("Erro: O controlador não implementa StageAwareController.");
             }
 
             primaryStage.setTitle("Sistema de Gestão Acadêmica");
