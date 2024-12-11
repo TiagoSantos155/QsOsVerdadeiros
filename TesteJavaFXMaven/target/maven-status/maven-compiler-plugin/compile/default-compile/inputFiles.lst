@@ -1,7 +1,16 @@
-C:\Users\tiago\OneDrive\Ambiente de Trabalho\QS\TesteJavaFXMaven\src\main\java\module-info.java
-C:\Users\tiago\OneDrive\Ambiente de Trabalho\QS\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\Admin.java
-C:\Users\tiago\OneDrive\Ambiente de Trabalho\QS\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\CoordenadorCurso.java
-C:\Users\tiago\OneDrive\Ambiente de Trabalho\QS\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\HelloApplication.java
-C:\Users\tiago\OneDrive\Ambiente de Trabalho\QS\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\HelloController.java
-C:\Users\tiago\OneDrive\Ambiente de Trabalho\QS\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\Main.java
-C:\Users\tiago\OneDrive\Ambiente de Trabalho\QS\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\Utilizador.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\module-info.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\Admin.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\AdminLoginController.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\AdminPanelController.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\CoordenadorCurso.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\CoordinatorPanelController.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\Cursos.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\DataBaseConnection.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\EpocaExames.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\Main.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\MainController.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\Sala.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\Semestre.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\TestDatabaseConnection.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\UC.java
+C:\Users\Carlos Pereira\Documents\GitHub\QsOsVerdadeiros\TesteJavaFXMaven\src\main\java\org\example\testejavafxmaven\Utilizador.java

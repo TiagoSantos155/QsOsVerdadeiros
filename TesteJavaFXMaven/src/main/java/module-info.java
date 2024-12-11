@@ -7,4 +7,7 @@ module org.example.testejavafxmaven {
 
     opens org.example.testejavafxmaven to javafx.fxml;
     exports org.example.testejavafxmaven;
+
+    requires java.sql;
+    requires com.h2database;
 }
