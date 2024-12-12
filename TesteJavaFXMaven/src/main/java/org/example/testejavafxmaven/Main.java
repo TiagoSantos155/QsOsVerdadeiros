@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -40,6 +41,22 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        UtilizadorDAO utilizadorDAO = new UtilizadorBD();
+
+        // Salvar um novo utilizador
+        Utilizador admin = new Admin("Admin", "admin@example.com", "admin123");
+        utilizadorDAO.salvar(admin);
+
+        // Buscar todos os utilizadores
+        List<Utilizador> utilizadores = utilizadorDAO.buscarTodos();
+        System.out.println("Lista de utilizadores:");
+        utilizadores.forEach(u -> System.out.println(u.getNome()));
+
+        // Fechar a conexão no final
+        DataBaseConnection.closeConnection();
+
+    launch(args);
     }
+
+
 }
