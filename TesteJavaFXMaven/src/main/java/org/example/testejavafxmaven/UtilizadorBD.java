@@ -9,12 +9,14 @@ public class UtilizadorBD implements UtilizadorDAO {
     @Override
     public void salvar(Utilizador utilizador) {
         String sql = "INSERT INTO utilizadores (nome, email, senha) VALUES (?, ?, ?)";
+
         try (Connection conn = DataBaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, utilizador.getNome());
             stmt.setString(2, utilizador.getEmail());
             stmt.setString(3, utilizador.getSenha());
             stmt.executeUpdate();
+            System.out.println("Utilizador salvo com sucesso: " + utilizador.getEmail());
         } catch (SQLException e) {
             System.err.println("Erro ao salvar utilizador: " + utilizador.getEmail());
             e.printStackTrace();
@@ -25,11 +27,14 @@ public class UtilizadorBD implements UtilizadorDAO {
     public List<Utilizador> buscarTodos() {
         List<Utilizador> utilizadores = new ArrayList<>();
         String sql = "SELECT * FROM utilizadores";
+
         try (Connection conn = DataBaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
+
             while (rs.next()) {
-                Utilizador utilizador = new Admin(
+                Utilizador utilizador = new Utilizador(
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("email"),
                         rs.getString("senha")

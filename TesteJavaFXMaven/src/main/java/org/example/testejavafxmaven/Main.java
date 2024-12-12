@@ -6,13 +6,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.List;
 
 public class Main extends Application {
-
-
-
 
     public interface StageAwareController {
         void setStage(Stage stage);
@@ -41,22 +37,22 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        // Inicializar o esquema do banco de dados
+        DataBaseConnection.inicializarSchema();
+
+        // Criar instância do DAO
         UtilizadorDAO utilizadorDAO = new UtilizadorBD();
 
         // Salvar um novo utilizador
-        Utilizador admin = new Admin("Admin", "admin@example.com", "admin123");
-        utilizadorDAO.salvar(admin);
+        //Utilizador admin = new Admin("Admin", "admin@example.com", "admin123");
+        //utilizadorDAO.salvar(admin);
 
         // Buscar todos os utilizadores
         List<Utilizador> utilizadores = utilizadorDAO.buscarTodos();
         System.out.println("Lista de utilizadores:");
         utilizadores.forEach(u -> System.out.println(u.getNome()));
 
-        // Fechar a conexão no final
-        DataBaseConnection.closeConnection();
-
-    launch(args);
+        // Launch JavaFX
+        launch(args);
     }
-
-
 }
