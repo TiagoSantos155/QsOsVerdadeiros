@@ -12,8 +12,10 @@ import java.io.IOException;
 
 public class AdminLoginController implements Main.StageAwareController {
 
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
 
     private Stage stage;
 
@@ -29,9 +31,6 @@ public class AdminLoginController implements Main.StageAwareController {
         }
 
         try {
-            // Verifique o caminho do FXML
-            System.out.println("Tentando carregar o arquivo FXML: " + fxmlPath);
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Scene scene = new Scene(loader.load());
 
@@ -50,14 +49,20 @@ public class AdminLoginController implements Main.StageAwareController {
         }
     }
 
-
     @FXML
     public void validarCredenciais() {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if ("admin".equals(username) && "1234".equals(password)) {
-            loadScene("/org/example/testejavafxmaven/admin_panel.fxml", "Painel do Administrador");
+        UtilizadorDAO utilizadorDAO = new UtilizadorBD();
+        Utilizador utilizador = utilizadorDAO.buscarPorEmail(username);
+
+        if (utilizador != null && utilizador.getSenha().equals(password)) {
+            if (utilizador instanceof Admin) {
+                loadScene("/org/example/testejavafxmaven/admin_panel.fxml", "Painel do Administrador");
+            } else {
+                exibirMensagemErro("O usuário não tem permissões de administrador.");
+            }
         } else {
             exibirMensagemErro("Usuário ou senha inválidos. Tente novamente.");
         }
