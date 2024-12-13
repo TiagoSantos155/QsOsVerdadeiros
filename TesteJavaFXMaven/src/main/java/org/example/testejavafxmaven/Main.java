@@ -44,8 +44,10 @@ public class Main extends Application {
         UtilizadorDAO utilizadorDAO = new UtilizadorBD();
 
         // Salvar um novo utilizador
-        //Utilizador admin = new Admin("Admin", "admin@example.com", "admin123");
+        //Utilizador admin = new Admin("admin", "1", "1");
+        //Utilizador utilizador = new Utilizador("utilizador", "2", "2");
         //utilizadorDAO.salvar(admin);
+        //utilizadorDAO.salvar(utilizador);
 
         // Buscar todos os utilizadores
         List<Utilizador> utilizadores = utilizadorDAO.buscarTodos();

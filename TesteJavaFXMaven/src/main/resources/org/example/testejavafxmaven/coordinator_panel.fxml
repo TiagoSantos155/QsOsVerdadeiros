@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.CoordinatorPanelController">
 
     <!-- Cabeçalho -->
@@ -13,31 +12,30 @@
     <!-- Conteúdo principal -->
     <center>
         <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
-            <!-- Gerenciamento de Cursos -->
-            <Label text="Gerenciamento de Cursos" style="-fx-font-size: 18px; -fx-underline: true;"/>
-            <Button text="Listar Cursos" style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;" onAction="#listarCursos"/>
+            <!-- Botão para Gerenciar Cursos -->
+            <Button text="Gerenciar Cursos"
+                    style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;"
+                    onAction="#abrirGerenciarCursos"/>
 
-            <!-- Divisor -->
-            <Line startX="0" startY="0" endX="300" endY="0" stroke="lightgray" strokeWidth="1"/>
+            <!-- Botão para Gerenciar UCs -->
+            <Button text="Gerenciar UCs"
+                    style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;"
+                    onAction="#abrirGerenciarUCs"/>
 
-            <!-- Gerenciamento de Salas -->
-            <Label text="Gerenciamento de Salas" style="-fx-font-size: 18px; -fx-underline: true;"/>
-            <Button text="Listar Salas" style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;" onAction="#listarSalas"/>
+            <!-- Botão para Gerenciar Avaliações -->
+            <Button text="Gerenciar Avaliações"
+                    style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;"
+                    onAction="#abrirGerenciarAvaliacoes"/>
 
-            <!-- Divisor -->
-            <Line startX="0" startY="0" endX="300" endY="0" stroke="lightgray" strokeWidth="1"/>
+            <!-- Botão para Gerenciar Salas -->
+            <Button text="Gerenciar Salas"
+                    style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;"
+                    onAction="#abrirGerenciarSalas"/>
 
-            <!-- Gerenciamento de UCs -->
-            <Label text="Gerenciamento de UCs" style="-fx-font-size: 18px; -fx-underline: true;"/>
-            <Button text="Listar UCs" style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;" onAction="#listarUCs"/>
+            <!-- Botão para Voltar -->
+            <Button text="Voltar ao Login"
+                    style="-fx-pref-width: 200px; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px;"
+                    onAction="#voltarLogin"/>
         </VBox>
     </center>
-
-    <!-- Painel à direita -->
-    <right>
-        <VBox spacing="15" alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #ecf0f1; -fx-border-color: lightgray; -fx-border-width: 1;">
-            <Label text="Resultados" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-            <ListView fx:id="listView" style="-fx-pref-height: 300px; -fx-pref-width: 250px;"/>
-        </VBox>
-    </right>
 </BorderPane>

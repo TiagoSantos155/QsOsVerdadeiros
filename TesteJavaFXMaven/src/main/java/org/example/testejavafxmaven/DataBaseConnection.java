@@ -62,9 +62,7 @@ public class DataBaseConnection {
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     tipo VARCHAR(50) NOT NULL,
                     inicio DATE NOT NULL,
-                    fim DATE NOT NULL,
-                    semestre_id INT NOT NULL,
-                    FOREIGN KEY (semestre_id) REFERENCES semestres(id)
+                    fim DATE NOT NULL
                 );
             """;
             stmt.execute(sqlEpocas);

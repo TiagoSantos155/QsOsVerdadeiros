@@ -49,7 +49,7 @@ public class MainController implements Main.StageAwareController {
 
     @FXML
     public void showCoordinatorPanel() {
-        loadScene("/org/example/testejavafxmaven/coordinator_panel.fxml", "Painel do Coordenador");
+        loadScene("/org/example/testejavafxmaven/coordinatorLogin.fxml", "Painel do Coordenador");
     }
 
     @FXML

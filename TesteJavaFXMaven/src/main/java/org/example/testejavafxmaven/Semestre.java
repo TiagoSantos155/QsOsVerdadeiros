@@ -1,10 +1,22 @@
 package org.example.testejavafxmaven;
 
 public class Semestre {
+    private int id;
     private String inicioSemestre1;
     private String fimSemestre1;
     private String inicioSemestre2;
     private String fimSemestre2;
+
+    // Construtores
+    public Semestre() {}
+
+    public Semestre(int id, String inicioSemestre1, String fimSemestre1, String inicioSemestre2, String fimSemestre2) {
+        this.id = id;
+        this.inicioSemestre1 = inicioSemestre1;
+        this.fimSemestre1 = fimSemestre1;
+        this.inicioSemestre2 = inicioSemestre2;
+        this.fimSemestre2 = fimSemestre2;
+    }
 
     // Métodos para definir o primeiro semestre
     public void definirSemestre1(String inicio, String fim) {
@@ -18,7 +30,15 @@ public class Semestre {
         this.fimSemestre2 = fim;
     }
 
-    // Getters
+    // Getters e setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getInicioSemestre1() {
         return inicioSemestre1;
     }
@@ -37,7 +57,8 @@ public class Semestre {
 
     @Override
     public String toString() {
-        return "Semestre 1: " + inicioSemestre1 + " a " + fimSemestre1 + "\n" +
+        return "ID: " + id + "\n" +
+                "Semestre 1: " + inicioSemestre1 + " a " + fimSemestre1 + "\n" +
                 "Semestre 2: " + inicioSemestre2 + " a " + fimSemestre2;
     }
 }

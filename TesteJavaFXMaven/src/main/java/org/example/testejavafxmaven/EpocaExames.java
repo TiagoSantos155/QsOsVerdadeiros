@@ -6,6 +6,7 @@ import java.util.List;
 
 public class EpocaExames {
 
+    int id;
     String tipo;
     String inicio;
     String fim;
@@ -18,6 +19,14 @@ public class EpocaExames {
 
     public EpocaExames() {
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getInicio() {
