@@ -6,20 +6,57 @@ import java.util.List;
 
 public class EpocaExames {
 
+    String tipo;
+    String inicio;
+    String fim;
+
+    EpocaExames(String tipo, String inicio, String fim) {
+        this.tipo = tipo;
+        this.inicio = inicio;
+        this.fim = fim;
+    }
+
+    public EpocaExames() {
+
+    }
+
+    public String getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(String inicio) {
+        this.inicio = inicio;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getFim() {
+        return fim;
+    }
+
+    public void setFim(String fim) {
+        this.fim = fim;
+    }
     public static final String[] TIPOS_DE_EPOCAS = {"Normal", "Recurso", "Especial"};
 
-    private final List<Epoca> epocas = new ArrayList<>();
+    private final List<EpocaExames> epocas = new ArrayList<>();
 
     public void adicionarEpoca(String tipo, String inicio, String fim, Semestre semestre) {
         // Exemplo: uso do objeto semestre (se necessário)
         System.out.println("Semestre usado: " + semestre);
 
-        epocas.add(new Epoca(tipo, inicio, fim));
+        epocas.add(new EpocaExames(tipo, inicio, fim));
     }
 
     public String getEpocas() {
         StringBuilder sb = new StringBuilder();
-        for (Epoca epoca : epocas) {
+        for (EpocaExames epoca : epocas) {
             sb.append("Tipo: ").append(epoca.getTipo()).append("\n")
                     .append("Data Início: ").append(epoca.getInicio()).append("\n")
                     .append("Data Fim: ").append(epoca.getFim()).append("\n\n");
@@ -28,7 +65,7 @@ public class EpocaExames {
     }
 
     public boolean verificarSobreposicao(LocalDate inicio, LocalDate fim) {
-        for (Epoca epoca : epocas) {
+        for (EpocaExames epoca : epocas) {
             LocalDate dataInicio = LocalDate.parse(epoca.inicio);
             LocalDate dataFim = LocalDate.parse(epoca.fim);
 
@@ -41,7 +78,7 @@ public class EpocaExames {
 
     public String listarEpocas() {
         StringBuilder sb = new StringBuilder();
-        for (Epoca epoca : epocas) {
+        for (EpocaExames epoca : epocas) {
             sb.append(epoca.tipo)
                     .append(": ").append(epoca.inicio).append(" a ").append(epoca.fim)
                     .append("\n");
@@ -49,40 +86,4 @@ public class EpocaExames {
         return sb.toString().trim();
     }
 
-    private static class Epoca {
-        String tipo;
-        String inicio;
-        String fim;
-
-        Epoca(String tipo, String inicio, String fim) {
-            this.tipo = tipo;
-            this.inicio = inicio;
-            this.fim = fim;
-        }
-
-        public String getInicio() {
-            return inicio;
-        }
-
-        public void setInicio(String inicio) {
-            this.inicio = inicio;
-        }
-
-        public String getTipo() {
-            return tipo;
-        }
-
-        public void setTipo(String tipo) {
-            this.tipo = tipo;
-        }
-
-        public String getFim() {
-            return fim;
-        }
-
-        public void setFim(String fim) {
-            this.fim = fim;
-        }
-
-    }
 }

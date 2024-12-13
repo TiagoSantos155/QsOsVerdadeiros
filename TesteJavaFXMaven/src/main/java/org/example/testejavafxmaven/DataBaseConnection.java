@@ -27,22 +27,50 @@ public class DataBaseConnection {
     }
 
     /**
-     * Inicializa o esquema do banco de dados, criando a tabela `utilizadores` caso ela ainda não exista.
+     * Inicializa o esquema do banco de dados, criando as tabelas necessárias caso ainda não existam.
      */
     public static void inicializarSchema() {
-        String sql = """
-            CREATE TABLE IF NOT EXISTS utilizadores (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                nome VARCHAR(100) NOT NULL,
-                email VARCHAR(100) UNIQUE NOT NULL,
-                senha VARCHAR(100) NOT NULL
-            );
-        """;
-
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
+
+            // Tabela `utilizadores`
+            String sqlUtilizadores = """
+                CREATE TABLE IF NOT EXISTS utilizadores (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    nome VARCHAR(100) NOT NULL,
+                    email VARCHAR(100) UNIQUE NOT NULL,
+                    senha VARCHAR(100) NOT NULL
+                );
+            """;
+            stmt.execute(sqlUtilizadores);
+
+            // Tabela `semestres`
+            String sqlSemestres = """
+                CREATE TABLE IF NOT EXISTS semestres (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    inicio_semestre1 DATE NOT NULL,
+                    fim_semestre1 DATE NOT NULL,
+                    inicio_semestre2 DATE NOT NULL,
+                    fim_semestre2 DATE NOT NULL
+                );
+            """;
+            stmt.execute(sqlSemestres);
+
+            // Tabela `epocas`
+            String sqlEpocas = """
+                CREATE TABLE IF NOT EXISTS epocas (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    tipo VARCHAR(50) NOT NULL,
+                    inicio DATE NOT NULL,
+                    fim DATE NOT NULL,
+                    semestre_id INT NOT NULL,
+                    FOREIGN KEY (semestre_id) REFERENCES semestres(id)
+                );
+            """;
+            stmt.execute(sqlEpocas);
+
             System.out.println("Esquema do banco de dados inicializado com sucesso.");
+
         } catch (SQLException e) {
             System.err.println("Erro ao inicializar o esquema do banco de dados.");
             e.printStackTrace();
