@@ -66,6 +66,25 @@ public class DataBaseConnection {
                 );
             """;
             stmt.execute(sqlEpocas);
+            // No metodo inicializarSchema()
+            String sqlCursos = """
+                CREATE TABLE IF NOT EXISTS Cursos (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    nome VARCHAR(100) NOT NULL UNIQUE
+                );
+            """;
+            stmt.execute(sqlCursos);
+
+            String sqlUCs = """
+                CREATE TABLE IF NOT EXISTS UCs (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    nome VARCHAR(100) NOT NULL UNIQUE,
+                    curso_id INT,
+                    FOREIGN KEY (curso_id) REFERENCES Cursos(id) ON DELETE SET NULL
+                );
+            """;
+            stmt.execute(sqlUCs);
+
 
             System.out.println("Esquema do banco de dados inicializado com sucesso.");
 

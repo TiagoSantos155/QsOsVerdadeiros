@@ -1,6 +1,5 @@
 package org.example.testejavafxmaven;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -18,12 +17,12 @@ public class CoordinatorPanelController implements Main.StageAwareController {
 
     // Método para abrir o gerenciamento de cursos
     public void abrirGerenciarCursos() {
-        loadScene("/path/to/gerenciar_cursos.fxml", "Gerenciar Cursos");
+        loadScene("/org/example/testejavafxmaven/GerenciadorDeCursos.fxml", "Gerenciar Cursos");
     }
 
     // Método para abrir o gerenciamento de UCs
     public void abrirGerenciarUCs() {
-        loadScene("/path/to/gerenciar_ucs.fxml", "Gerenciar UCs");
+        loadScene("/org/example/testejavafxmaven/GerenciadorDeUcs.fxml", "Gerenciar UCs");
     }
 
     // Método para abrir o gerenciamento de avaliações

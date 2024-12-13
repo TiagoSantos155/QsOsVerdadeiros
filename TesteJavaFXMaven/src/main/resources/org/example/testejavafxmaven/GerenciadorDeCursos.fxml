@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.GerenciadorDeCursosController">
+
+    <top>
+        <Label text="Gerenciar Cursos"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 15; -fx-background-color: #3498db; -fx-text-fill: white;"/>
+    </top>
+
+    <center>
+        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+            <Label text="Cursos Disponíveis" style="-fx-font-size: 18px; -fx-underline: true;"/>
+            <ListView fx:id="listViewCursos" style="-fx-pref-height: 300px; -fx-pref-width: 300px;" onMouseClicked="#cursoSelecionado"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <Button text="Voltar" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"
+                onAction="#voltar"/>
+    </bottom>
+</BorderPane>

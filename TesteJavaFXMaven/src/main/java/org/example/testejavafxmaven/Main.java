@@ -40,21 +40,29 @@ public class Main extends Application {
         // Inicializar o esquema do banco de dados
         DataBaseConnection.inicializarSchema();
 
-        // Criar instância do DAO
+        // Criar instância do DAO para Utilizadores
         UtilizadorDAO utilizadorDAO = new UtilizadorBD();
 
-        // Salvar um novo utilizador
+        // Salvar utilizadores de teste
         //Utilizador admin = new Admin("admin", "1", "1");
         //Utilizador utilizador = new Utilizador("utilizador", "2", "2");
         //utilizadorDAO.salvar(admin);
         //utilizadorDAO.salvar(utilizador);
 
-        // Buscar todos os utilizadores
-        List<Utilizador> utilizadores = utilizadorDAO.buscarTodos();
-        System.out.println("Lista de utilizadores:");
-        utilizadores.forEach(u -> System.out.println(u.getNome()));
+        // Criar instâncias das classes DAO
+        CursosDAO cursoDAO = new CursosDAO();
+        UCDAO ucDAO = new UCDAO();
+
+        // Inserir Cursos no Banco de Dados
+        //cursoDAO.salvarCurso("Engenharia Informática");
+        //cursoDAO.salvarCurso("Gestão de Empresas");
+
+        // Inserir Unidades Curriculares no Banco de Dados
+        //ucDAO.salvarUC("Programação Avançada", 1); // Eng. Informática
+        //ucDAO.salvarUC("Gestão de Recursos Humanos", 2); // Gestão de Empresas
 
         // Launch JavaFX
         launch(args);
     }
+
 }
