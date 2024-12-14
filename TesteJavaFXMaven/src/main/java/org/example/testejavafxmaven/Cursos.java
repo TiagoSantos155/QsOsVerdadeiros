@@ -5,13 +5,11 @@ import java.util.List;
 public class Cursos {
     private int id;
     private String nome;
-    private List<UC> ucs; // Lista de UCs associadas ao curso
 
     // Construtores, getters e setters
-    public Cursos(int id, String nome, List<UC> ucs) {
+    public Cursos(int id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.ucs = ucs;
     }
 
     public int getId() {
@@ -22,7 +20,4 @@ public class Cursos {
         return nome;
     }
 
-    public List<UC> getUcs() {
-        return ucs;
-    }
 }

@@ -17,12 +17,43 @@ public class CoordinatorPanelController implements Main.StageAwareController {
 
     // Método para abrir o gerenciamento de cursos
     public void abrirGerenciarCursos() {
-        loadScene("/org/example/testejavafxmaven/GerenciadorDeCursos.fxml", "Gerenciar Cursos");
-    }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/GerenciadorDeCursos.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            // Obter o controlador e configurar o Stage
+            GerenciadorDeCursosController cursosController = loader.getController();
+            cursosController.setStage(stage); // Passa o Stage atual para o controlador
+
+            // Configurar o curso selecionado
+            //cursosController.setCursoSelecionado("Curso de Computação");
+
+            // Alterar a cena
+            stage.setScene(scene);
+        } catch (IOException e) {
+            System.err.println("Erro ao abrir a tela de Gerenciador de UCs.");
+            e.printStackTrace();
+        }      }
 
     // Método para abrir o gerenciamento de UCs
     public void abrirGerenciarUCs() {
-        loadScene("/org/example/testejavafxmaven/GerenciadorDeUcs.fxml", "Gerenciar UCs");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/GerenciadorDeUCs.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            // Obter o controlador e configurar o Stage
+            GerenciadorDeUCsController ucsController = loader.getController();
+            ucsController.setStage(stage); // Passa o Stage atual para o controlador
+
+            // Configurar o curso selecionado
+            ucsController.setCursoSelecionado("Curso de Computação");
+
+            // Alterar a cena
+            stage.setScene(scene);
+        } catch (IOException e) {
+            System.err.println("Erro ao abrir a tela de Gerenciador de UCs.");
+            e.printStackTrace();
+        }
     }
 
     // Método para abrir o gerenciamento de avaliações

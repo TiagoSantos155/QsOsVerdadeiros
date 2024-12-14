@@ -9,6 +9,10 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class GerenciadorDeUCsController {
@@ -23,6 +27,8 @@ public class GerenciadorDeUCsController {
 
     private Stage stage;  // Para armazenar o stage atual
 
+    private UCDAO ucDAO = new UCBD();  // Usando a implementação de UCDAO
+
     // Método para definir o curso selecionado e carregar suas UCs
     public void setCursoSelecionado(String curso) {
         this.cursoSelecionado = curso;
@@ -36,22 +42,36 @@ public class GerenciadorDeUCsController {
     private void carregarUCs(String curso) {
         listViewUCs.getItems().clear();  // Limpar a lista de UCs antes de adicionar novas
 
-        // Simulação das UCs dependendo do curso (em uma aplicação real, você puxaria isso de uma base de dados)
-        List<CheckBox> ucs = getUCsParaCurso(curso);
+        // Buscar o id do curso no banco de dados para associar as UCs
+        int cursoId = buscarCursoId(curso);  // Buscar o id do curso
+        List<CheckBox> ucs = getUCsParaCurso(cursoId);  // Buscar UCs para o curso selecionado
         listViewUCs.getItems().addAll(ucs);
     }
 
-    // Método para simular a obtenção das UCs do curso (aqui você faria uma consulta ao banco de dados)
-    private List<CheckBox> getUCsParaCurso(String curso) {
-        if ("Curso de Computação".equals(curso)) {
-            return List.of(new CheckBox("Estruturas de Dados"), new CheckBox("Algoritmos"), new CheckBox("Banco de Dados"));
-        } else if ("Curso de Matemática".equals(curso)) {
-            return List.of(new CheckBox("Cálculo I"), new CheckBox("Álgebra Linear"), new CheckBox("Geometria"));
-        } else if ("Curso de Física".equals(curso)) {
-            return List.of(new CheckBox("Física Clássica"), new CheckBox("Física Quântica"));
-        } else {
-            return List.of(new CheckBox("Biologia Geral"), new CheckBox("Genética"));
+    // Método para buscar o id do curso no banco de dados
+    private int buscarCursoId(String cursoNome) {
+        // Realizar uma consulta para buscar o id do curso pelo nome
+        String sql = "SELECT id FROM Cursos WHERE nome = ?";
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, cursoNome);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");  // Retorna o id do curso
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar id do curso: " + e.getMessage());
         }
+        return -1;  // Retorna -1 se o curso não for encontrado
+    }
+
+    // Método para buscar as UCs para o curso selecionado
+    private List<CheckBox> getUCsParaCurso(int cursoId) {
+        List<UC> ucs = ucDAO.buscarUcsPorCurso(cursoId);  // Buscar as UCs do banco de dados
+        // Converter as UCs em CheckBoxs para exibição na interface
+        return ucs.stream()
+                .map(uc -> new CheckBox(uc.getNome()))
+                .toList();
     }
 
     // Método para definir as UCs (como no exemplo anterior)
@@ -67,24 +87,23 @@ public class GerenciadorDeUCsController {
         }
     }
 
-    // Método para voltar para a tela de Gerenciar Cursos
     @FXML
     public void voltar() {
         try {
             // Carregar a tela de Gerenciar Cursos
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/GerenciadorDeCursos.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/coordinator_panel.fxml"));
             Scene scene = new Scene(loader.load());
 
             // Obter o controlador da nova cena
-            GerenciadorDeCursosController cursosController = loader.getController();
+            CoordinatorPanelController coordinatorPanelController = loader.getController();
 
             // Passar o Stage atual para o controlador da nova cena
-            cursosController.setStage(stage); // Passando o stage atual para o próximo controlador
+            coordinatorPanelController.setStage(stage);
 
             // Alterar a cena no Stage atual
             stage.setScene(scene);
         } catch (IOException e) {
-            System.err.println("Erro ao voltar para a tela de Gerenciar Cursos.");
+            System.err.println("Erro ao voltar para a tela de Coordenador.");
             e.printStackTrace();
         }
     }

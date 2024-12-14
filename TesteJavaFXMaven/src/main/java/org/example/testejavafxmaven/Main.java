@@ -45,21 +45,29 @@ public class Main extends Application {
 
         // Salvar utilizadores de teste
         //Utilizador admin = new Admin("admin", "1", "1");
-        //Utilizador utilizador = new Utilizador("utilizador", "2", "2");
-        //utilizadorDAO.salvar(admin);
+       // Utilizador utilizador = new Utilizador("utilizador", "2", "2");
+       // utilizadorDAO.salvar(admin);
         //utilizadorDAO.salvar(utilizador);
 
         // Criar instâncias das classes DAO
-        CursosDAO cursoDAO = new CursosDAO();
-        UCDAO ucDAO = new UCDAO();
+        CursosDAO cursoDAO = new CursosBD();
+        UCDAO ucDAO = new UCBD();
 
         // Inserir Cursos no Banco de Dados
         //cursoDAO.salvarCurso("Engenharia Informática");
         //cursoDAO.salvarCurso("Gestão de Empresas");
 
         // Inserir Unidades Curriculares no Banco de Dados
-        //ucDAO.salvarUC("Programação Avançada", 1); // Eng. Informática
-        //ucDAO.salvarUC("Gestão de Recursos Humanos", 2); // Gestão de Empresas
+        /**ucDAO.salvarUC("Estruturas de Dados", null);  // null significa que a UC ainda não está associada a nenhum curso
+        ucDAO.salvarUC("Algoritmos", null);
+        ucDAO.salvarUC("Banco de Dados", null);
+        ucDAO.salvarUC("Cálculo I", null);
+        ucDAO.salvarUC("Álgebra Linear", null);
+        ucDAO.salvarUC("Geometria", null);
+        ucDAO.salvarUC("Física Clássica", null);
+        ucDAO.salvarUC("Física Quântica", null);
+        ucDAO.salvarUC("Biologia Geral", null);
+        ucDAO.salvarUC("Genética", null);*/
 
         // Launch JavaFX
         launch(args);

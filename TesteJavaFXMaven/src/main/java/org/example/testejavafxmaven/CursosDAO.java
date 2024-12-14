@@ -1,60 +1,42 @@
 package org.example.testejavafxmaven;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class CursosDAO {
+public interface CursosDAO {
 
-    // Método para buscar todos os cursos
-    public List<Cursos> buscarTodosCursos() {
-        List<Cursos> cursos = new ArrayList<>();
-        String sql = "SELECT * FROM Cursos";
+    /**
+     * Salva um novo curso no banco de dados.
+     *
+     * @param nome O nome do curso a ser salvo.
+     */
+    void salvarCurso(String nome);
 
-        try (Connection conn = DataBaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+    /**
+     * Busca todos os cursos do banco de dados.
+     *
+     * @return Uma lista contendo todos os cursos.
+     */
+    List<Cursos> buscarTodosCursos();
 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-                List<UC> ucs = buscarUcsDoCurso(id);  // Buscar as UCs associadas ao curso
-                Cursos curso = new Cursos(id, nome, ucs);
-                cursos.add(curso);
-            }
+    /**
+     * Busca um curso específico pelo ID.
+     *
+     * @param id O ID do curso a ser buscado.
+     * @return O objeto Cursos encontrado, ou null se não existir.
+     */
+    Cursos buscarCursoPorId(int id);
 
-        } catch (SQLException e) {
-            System.err.println("Erro ao buscar cursos no banco de dados: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return cursos;
-    }
+    /**
+     * Atualiza as informações de um curso no banco de dados.
+     *
+     * @param curso O objeto Cursos com os dados atualizados.
+     */
+    void atualizarCurso(Cursos curso);
 
-    // Método para buscar todas as UCs de um curso específico
-    private List<UC> buscarUcsDoCurso(int cursoId) {
-        List<UC> ucs = new ArrayList<>();
-        String sql = "SELECT * FROM UCs WHERE curso_id = ?";
-
-        try (Connection conn = DataBaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, cursoId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String nome = rs.getString("nome");
-                    ucs.add(new UC(id, nome));
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao buscar UCs do curso no banco de dados: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return ucs;
-    }
+    /**
+     * Exclui um curso do banco de dados pelo ID.
+     *
+     * @param id O ID do curso a ser excluído.
+     */
+    void excluirCurso(int id);
 }
