@@ -26,4 +26,10 @@ public class Cursos {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    @Override
+    public String toString() {
+        return "Curso: " + nome + " (ID: " + id + ")";
+    }
+
 }

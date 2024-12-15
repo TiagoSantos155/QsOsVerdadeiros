@@ -12,7 +12,7 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
 public class EscolhaUCsController {
 
     @FXML
@@ -130,4 +130,4 @@ public class EscolhaUCsController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-}
+}*/

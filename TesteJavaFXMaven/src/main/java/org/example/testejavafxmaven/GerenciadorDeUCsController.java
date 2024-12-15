@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
+/**
 public class GerenciadorDeUCsController {
 
     @FXML
@@ -112,4 +112,4 @@ public class GerenciadorDeUCsController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-}
+}*/

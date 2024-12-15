@@ -36,4 +36,10 @@ public class UnidadeCurricular {
     public void setTipoAvaliacao(String tipoAvaliacao) {
         this.tipoAvaliacao = tipoAvaliacao;
     }
+
+    @Override
+    public String toString() {
+        return "Unidade Curricular: " + nome + " (ID: " + id + ", Tipo: " + tipoAvaliacao + ")";
+    }
+
 }

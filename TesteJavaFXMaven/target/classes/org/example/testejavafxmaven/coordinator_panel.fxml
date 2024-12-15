@@ -1,41 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.CoordinatorPanelController">
-
-    <!-- Cabeçalho -->
     <top>
-        <Label text="Painel do Coordenador"
-               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 15; -fx-background-color: #3498db; -fx-text-fill: white;"/>
+        <Label text="Painel do Coordenador" style="-fx-font-size: 18px; -fx-font-weight: bold;" BorderPane.alignment="CENTER" />
     </top>
-
-    <!-- Conteúdo principal -->
     <center>
-        <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
-            <!-- Botão para Gerenciar Cursos -->
-            <Button text="Gerenciar Cursos"
-                    style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;"
-                    onAction="#abrirGerenciarCursos"/>
-
-            <!-- Botão para Gerenciar UCs -->
-            <Button text="Gerenciar UCs"
-                    style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;"
-                    onAction="#abrirGerenciarUCs"/>
-
-            <!-- Botão para Gerenciar Avaliações -->
-            <Button text="Gerenciar Avaliações"
-                    style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;"
-                    onAction="#abrirGerenciarAvaliacoes"/>
-
-            <!-- Botão para Gerenciar Salas -->
-            <Button text="Gerenciar Salas"
-                    style="-fx-pref-width: 200px; -fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 14px;"
-                    onAction="#abrirGerenciarSalas"/>
-
-            <!-- Botão para Voltar -->
-            <Button text="Voltar ao Login"
-                    style="-fx-pref-width: 200px; -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px;"
-                    onAction="#voltarLogin"/>
+        <VBox spacing="10" alignment="CENTER">
+            <Button text="Listar Cursos" fx:id="btnListarCursos" onAction="#handleListarCursos"/>
+            <Button text="Listar Unidades Curriculares" fx:id="btnListarUC" onAction="#handleListarUC"/>
+            <Button text="Editor de Cursos" fx:id="btnEditorCursos" onAction="#handleEditorCursos"/>
+            <Button text="Editor de UC's" fx:id="btnEditorUC" onAction="#handleEditorUC"/>
         </VBox>
     </center>
+    <bottom>
+        <Button text="Voltar" onAction="#handleVoltar" BorderPane.alignment="CENTER"/>
+    </bottom>
 </BorderPane>
