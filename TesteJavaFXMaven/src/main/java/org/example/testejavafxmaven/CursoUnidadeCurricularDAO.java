@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CursoUnidadeCurricularDAO extends GenericDAO<CursoUnidadeCurricular> {
 
@@ -33,5 +35,19 @@ public class CursoUnidadeCurricularDAO extends GenericDAO<CursoUnidadeCurricular
             stmt.setInt(2, idUC);
             stmt.executeUpdate();
         }
+    }
+
+    public List<CursoUnidadeCurricular> findAll() throws SQLException {
+        String query = "SELECT * FROM CursosUnidadesCurriculares";
+        List<CursoUnidadeCurricular> cursoUnidadeCurricularList = new ArrayList<>();
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                cursoUnidadeCurricularList.add(mapResultSetToEntity(rs));
+            }
+        }
+        return cursoUnidadeCurricularList;
     }
 }

@@ -61,12 +61,12 @@ public class CoordinatorPanelController implements Main.StageAwareController {
 
     @FXML
     public void handleEditorCursos() {
-        loadScene("/org/example/testejavafxmaven/editor_cursos.fxml", "Editor de Cursos");
+        loadScene("/org/example/testejavafxmaven/EditorCursos.fxml", "Editor de Cursos");
     }
 
     @FXML
     public void handleEditorUC() {
-        loadScene("/org/example/testejavafxmaven/editor_uc.fxml", "Editor de UC's");
+        loadScene("/org/example/testejavafxmaven/EditorUc.fxml", "Editor de UC's");
     }
 
     @FXML

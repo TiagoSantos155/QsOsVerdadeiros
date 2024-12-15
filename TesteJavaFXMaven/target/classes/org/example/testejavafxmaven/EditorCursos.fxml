@@ -2,8 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.GerenciadorDeCursosController">
-
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.EditorCursosController">
     <top>
         <Label text="Gerenciar Cursos"
                style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 15; -fx-background-color: #3498db; -fx-text-fill: white;"/>
@@ -17,7 +16,9 @@
     </center>
 
     <bottom>
-        <Button text="Voltar" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"
-                onAction="#voltar"/>
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <Button text="Editar UC's" style="-fx-background-color: #2980b9; -fx-text-fill: white;" onAction="#editarUCs"/>
+            <Button text="Voltar" onAction="#handleVoltar" style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-size: 14px; -fx-border-radius: 5px;" />
+        </HBox>
     </bottom>
 </BorderPane>

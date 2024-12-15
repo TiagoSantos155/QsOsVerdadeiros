@@ -109,7 +109,7 @@ public class EscolhaUCsController {
     public void voltar() {
         try {
             // Carregar a tela de Gerenciar Cursos
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/GerenciadorDeCursos.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/testejavafxmaven/EditorCursos.fxml"));
             Scene scene = new Scene(loader.load());
 
             // Obter o controlador da nova cena

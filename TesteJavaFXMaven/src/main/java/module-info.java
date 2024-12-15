@@ -10,4 +10,5 @@ module org.example.testejavafxmaven {
 
     requires java.sql;
     requires com.h2database;
+    requires java.desktop;
 }
