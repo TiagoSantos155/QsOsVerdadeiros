@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,7 +17,7 @@ import java.util.List;
 public class ListarUCController implements Main.StageAwareController {
 
     @FXML
-    private TableView<UnidadeCurricular> tableUC;
+    private TableView<UnidadeCurricular> tableUCs;
 
     @FXML
     private TableColumn<UnidadeCurricular, Integer> colId;
@@ -30,9 +29,10 @@ public class ListarUCController implements Main.StageAwareController {
     private TableColumn<UnidadeCurricular, String> colTipoAvaliacao;
 
     @FXML
-    private Button btnVoltar;
+    private TableColumn<UnidadeCurricular, Integer> colNumeroAlunos;
 
     private Stage stage;
+    private UnidadeCurricularDAO ucDAO;
 
     @Override
     public void setStage(Stage stage) {
@@ -41,25 +41,28 @@ public class ListarUCController implements Main.StageAwareController {
 
     @FXML
     public void initialize() {
+        ucDAO = new UnidadeCurricularDAO();
+
+        // Configura as colunas da tabela
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colTipoAvaliacao.setCellValueFactory(new PropertyValueFactory<>("tipoAvaliacao"));
+        colNumeroAlunos.setCellValueFactory(new PropertyValueFactory<>("numeroAlunos"));
 
-        carregarUCs();
+        // Carrega os dados
+        carregarDados();
     }
 
-    private void carregarUCs() {
-        UnidadeCurricularDAO ucDAO = new UnidadeCurricularDAO();
+    private void carregarDados() {
         try {
-            List<UnidadeCurricular> unidadesCurriculares = ucDAO.listarUnidadesCurriculares();
-            ObservableList<UnidadeCurricular> ucObservableList = FXCollections.observableArrayList(unidadesCurriculares);
-            tableUC.setItems(ucObservableList);
+            List<UnidadeCurricular> listaUCs = ucDAO.listarUnidadesCurriculares();
+            ObservableList<UnidadeCurricular> data = FXCollections.observableArrayList(listaUCs);
+            tableUCs.setItems(data);
         } catch (SQLException e) {
-            System.err.println("Erro ao carregar as unidades curriculares: " + e.getMessage());
             e.printStackTrace();
+            System.err.println("Erro ao carregar Unidades Curriculares.");
         }
     }
-
 
     @FXML
     public void handleVoltar() {

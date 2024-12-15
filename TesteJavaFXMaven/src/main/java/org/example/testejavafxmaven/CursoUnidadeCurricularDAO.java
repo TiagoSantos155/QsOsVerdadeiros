@@ -37,17 +37,48 @@ public class CursoUnidadeCurricularDAO extends GenericDAO<CursoUnidadeCurricular
         }
     }
 
-    public List<CursoUnidadeCurricular> findAll() throws SQLException {
-        String query = "SELECT * FROM CursosUnidadesCurriculares";
-        List<CursoUnidadeCurricular> cursoUnidadeCurricularList = new ArrayList<>();
-        try (Connection conn = DataBaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
+    public List<Integer> listarUnidadesPorCurso(int cursoId) throws SQLException {
+        String query = "SELECT id_uc FROM CursoUnidadeCurricular WHERE id_curso = ?";
+        List<Integer> unidadesAssociadas = new ArrayList<>();
 
-            while (rs.next()) {
-                cursoUnidadeCurricularList.add(mapResultSetToEntity(rs));
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, cursoId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    unidadesAssociadas.add(rs.getInt("id_uc"));
+                }
             }
         }
-        return cursoUnidadeCurricularList;
+        return unidadesAssociadas;
     }
+
+    public void atualizarAssociacoes(int cursoId, List<UnidadeCurricular> ucs) throws SQLException {
+        String deleteQuery = "DELETE FROM CursoUnidadeCurricular WHERE id_curso = ?";
+        String insertQuery = "INSERT INTO CursoUnidadeCurricular (id_curso, id_uc) VALUES (?, ?)";
+
+        try (Connection conn = DataBaseConnection.getConnection()) {
+            conn.setAutoCommit(false); // Início da transação.
+
+            // Remover associações antigas.
+            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {
+                deleteStmt.setInt(1, cursoId);
+                deleteStmt.executeUpdate();
+            }
+
+            // Inserir novas associações.
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+                for (UnidadeCurricular uc : ucs) {
+                    insertStmt.setInt(1, cursoId);
+                    insertStmt.setInt(2, uc.getId());
+                    insertStmt.addBatch();
+                }
+                insertStmt.executeBatch();
+            }
+
+            conn.commit(); // Finalizar a transação.
+        }
+    }
+
+
 }

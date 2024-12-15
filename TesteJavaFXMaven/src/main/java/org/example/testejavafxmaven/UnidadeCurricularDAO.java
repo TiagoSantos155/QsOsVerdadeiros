@@ -13,7 +13,8 @@ public class UnidadeCurricularDAO extends GenericDAO<UnidadeCurricular> {
         return new UnidadeCurricular(
                 rs.getInt("id_uc"),
                 rs.getString("nome"),
-                rs.getString("tipo_avaliacao")
+                rs.getString("tipo_avaliacao"),
+                rs.getInt("numero_alunos")
         );
     }
 
@@ -32,12 +33,25 @@ public class UnidadeCurricularDAO extends GenericDAO<UnidadeCurricular> {
         executeUpdate(query, id);
     }
 
-    public void adicionarUnidadeCurricular(String nome, String tipoAvaliacao) throws SQLException {
-        String query = "INSERT INTO UnidadesCurriculares (nome, tipo_avaliacao) VALUES (?, ?)";
+    public void adicionarUnidadeCurricular(String nome, String tipoAvaliacao, int numeroAlunos) throws SQLException {
+        String query = "INSERT INTO UnidadesCurriculares (nome, tipo_avaliacao, numero_alunos) VALUES (?, ?, ?)";
         try (Connection conn = DataBaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, nome);
             stmt.setString(2, tipoAvaliacao);
+            stmt.setInt(3, numeroAlunos);
+            stmt.executeUpdate();
+        }
+    }
+
+    public void atualizarUnidadeCurricular(int id, String nome, String tipoAvaliacao, int numeroAlunos) throws SQLException {
+        String query = "UPDATE UnidadesCurriculares SET nome = ?, tipo_avaliacao = ?, numero_alunos = ? WHERE id_uc = ?";
+        try (Connection conn = DataBaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, nome);
+            stmt.setString(2, tipoAvaliacao);
+            stmt.setInt(3, numeroAlunos);
+            stmt.setInt(4, id);
             stmt.executeUpdate();
         }
     }
@@ -49,24 +63,10 @@ public class UnidadeCurricularDAO extends GenericDAO<UnidadeCurricular> {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                unidades.add(new UnidadeCurricular(
-                        rs.getInt("id_uc"),
-                        rs.getString("nome"),
-                        rs.getString("tipo_avaliacao")
-                ));
+                unidades.add(mapResultSetToEntity(rs));
             }
         }
         return unidades;
     }
 
-    public void atualizarUnidadeCurricular(int id, String nome, String tipoAvaliacao) throws SQLException {
-        String query = "UPDATE UnidadesCurriculares SET nome = ?, tipo_avaliacao = ? WHERE id_uc = ?";
-        try (Connection conn = DataBaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, nome);
-            stmt.setString(2, tipoAvaliacao);
-            stmt.setInt(3, id);
-            stmt.executeUpdate();
-        }
-    }
 }

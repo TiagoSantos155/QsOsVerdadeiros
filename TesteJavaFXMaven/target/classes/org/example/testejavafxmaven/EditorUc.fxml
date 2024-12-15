@@ -1,25 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.testejavafxmaven.EditorUcController">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.testejavafxmaven.EditorUcController">
     <top>
-        <Label text="Definir UC's para o Curso"
-               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-padding: 15; -fx-background-color: #3498db; -fx-text-fill: white;"/>
+        <Label text="Editor de Unidades Curriculares" style="-fx-font-size: 18px; -fx-font-weight: bold;" BorderPane.alignment="CENTER"/>
     </top>
-
     <center>
-        <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20;">
-            <Label fx:id="labelCursoSelecionado" text="Curso: [Selecionado]" style="-fx-font-size: 18px; -fx-underline: true;"/>
-            <ListView fx:id="listViewUCs" style="-fx-pref-height: 300px; -fx-pref-width: 300px;"/>
-            <ComboBox fx:id="comboBoxTipoAvaliacao" promptText="Selecione o Tipo de Avaliação"/>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <TextField fx:id="txtPesquisa" promptText="Pesquisar UC" />
+            <ListView fx:id="listUCs" prefWidth="400" prefHeight="300" />
+            <HBox spacing="10">
+                <VBox spacing="10">
+                    <Label text="Novo Nome" />
+                    <TextField fx:id="txtNovoNome" />
+                </VBox>
+                <VBox spacing="10">
+                    <Label text="Novo Tipo de Avaliação" />
+                    <ComboBox fx:id="cbTipoAvaliacao">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="MISTA" />
+                                <String fx:value="CONTINUA" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </VBox>
+            </HBox>
+            <Button text="Salvar Alterações" onAction="#handleSalvar" />
         </VBox>
     </center>
-
     <bottom>
-        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
-            <Button text="Definir UC's" style="-fx-background-color: #2ecc71; -fx-text-fill: white;" onAction="#definirUCs"/>
-            <Button text="Voltar" onAction="#handleVoltar" style="-fx-background-color: #4A90E2; -fx-text-fill: white; -fx-padding: 10 20; -fx-font-size: 14px; -fx-border-radius: 5px;" />
+        <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+            <Button text="Voltar" onAction="#handleVoltar" />
         </HBox>
     </bottom>
 </BorderPane>
