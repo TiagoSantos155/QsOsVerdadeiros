@@ -40,6 +40,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         // DAOs para cursos/unidades curriculares
@@ -56,6 +57,9 @@ public class Main extends Application {
             DataBaseConnection.inicializarSchema();
             inicializarDados(cursoDAO, unidadeCurricularDAO);
 
+            // Launch JavaFX
+            launch(args);
+
             while (true) {
                 System.out.println("\n=== Menu Principal ===");
                 System.out.println("1. Gerenciar Cursos e Unidades Curriculares");
@@ -66,7 +70,7 @@ public class Main extends Application {
                 int opcao = scanner.nextInt();
                 switch (opcao) {
                     case 1 -> menuCursos(scanner, cursoDAO, unidadeCurricularDAO, cursoUnidadeCurricularDAO);
-                    case 2 -> menuSalasAvaliacoes(scanner, salaDAO, avaliacoesDAO);
+                    case 2 -> menuSalasAvaliacoes(scanner, salaDAO, avaliacoesDAO, unidadeCurricularDAO);
                     case 0 -> {
                         System.out.println("Saindo...");
                         return;
@@ -85,7 +89,7 @@ public class Main extends Application {
             System.out.println("1. Listar Cursos");
             System.out.println("2. Listar Unidades Curriculares");
             System.out.println("3. Associar Unidade Curricular a Curso");
-            System.out.println("4. Atualizar Unidade Curricular");
+            System.out.println("4. Editar Unidade Curricular");
             System.out.println("0. Voltar ao Menu Principal");
             System.out.print("Escolha uma opção: ");
 
@@ -105,7 +109,7 @@ public class Main extends Application {
         }
     }
 
-    private static void menuSalasAvaliacoes(Scanner scanner, SalaDAO salaDAO, AvaliacoesDAO avaliacoesDAO) {
+    private static void menuSalasAvaliacoes(Scanner scanner, SalaDAO salaDAO, AvaliacoesDAO avaliacoesDAO, UnidadeCurricularDAO unidadeCurricularDAO) {
         while (true) {
             System.out.println("\n=== Menu de Salas e Avaliações ===");
             System.out.println("1. Gerenciar Salas");
@@ -116,7 +120,7 @@ public class Main extends Application {
             int opcao = scanner.nextInt();
             switch (opcao) {
                 case 1 -> menuSalas(scanner, salaDAO);
-                case 2 -> menuAvaliacoes(scanner, avaliacoesDAO);
+                case 2 -> menuAvaliacoes(scanner, avaliacoesDAO, unidadeCurricularDAO);
                 case 0 -> {
                     return;
                 }
@@ -236,7 +240,7 @@ public class Main extends Application {
         }
     }
 
-    private static void menuAvaliacoes(Scanner scanner, AvaliacoesDAO avaliacoesDAO) {
+    private static void menuAvaliacoes(Scanner scanner, AvaliacoesDAO avaliacoesDAO, UnidadeCurricularDAO unidadeCurricularDAO) {
         while (true) {
             System.out.println("\n=== Menu de Avaliações ===");
             System.out.println("1. Listar Avaliações");
@@ -256,6 +260,17 @@ public class Main extends Application {
                         avaliacoes.forEach(System.out::println);
                         break;
                     case 2:
+                        // Selecionar Unidade Curricular
+                        listarUnidadesCurriculares(unidadeCurricularDAO);
+                        System.out.print("ID da UC: ");
+                        int idUc = scanner.nextInt();
+
+                        // Selecionar Época
+                        System.out.print("ID da época (ou 0 para nenhum): ");
+                        Integer idEpoca = scanner.nextInt();
+                        if (idEpoca == 0) idEpoca = null;
+
+                        // Preencher detalhes da avaliação
                         System.out.print("Tipo de avaliação: ");
                         String tipoAvaliacao = scanner.next();
                         System.out.print("Ponderação: ");
@@ -269,11 +284,7 @@ public class Main extends Application {
                         boolean horarioHabitual = scanner.nextBoolean();
                         System.out.print("Requer computador? (true/false): ");
                         boolean requerComputador = scanner.nextBoolean();
-                        System.out.print("ID da UC: ");
-                        int idUc = scanner.nextInt();
-                        System.out.print("ID da época (ou 0 para nenhum): ");
-                        Integer idEpoca = scanner.nextInt();
-                        if (idEpoca == 0) idEpoca = null;
+
                         Avaliacoes novaAvaliacao = new Avaliacoes(0, tipoAvaliacao, ponderacao, dataHora, sala, horarioHabitual, requerComputador, idUc, idEpoca);
                         avaliacoesDAO.inserirAvaliacao(novaAvaliacao);
                         System.out.println("Avaliação adicionada com sucesso!");
@@ -350,7 +361,5 @@ public class Main extends Application {
         unidadeCurricularDAO.adicionarUnidadeCurricular("Estatística", "CONTINUA", 25);
         unidadeCurricularDAO.adicionarUnidadeCurricular("Matemática Discreta", "CONTINUA", 30);
         unidadeCurricularDAO.adicionarUnidadeCurricular("Design Digital", "MISTA", 20);
-        // Launch JavaFX
-        //launch(args);
     }
 }
