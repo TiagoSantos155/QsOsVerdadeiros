@@ -16,10 +16,10 @@ import java.util.List;
 public class EscolhaUCsController {
 
     @FXML
-    private ListView<UC> listViewUCs;
+    private ListView<UnidadeCurricular> listViewUCs;
 
     private String cursoSelecionado;
-    private final UCDAO ucDAO = new UCBD();
+    private final UnidadeCurricularDAO ucDAO = new UCBD();
     private final CursosDAO cursosDAO = new CursosBD();
 
     private Stage stage;
@@ -40,22 +40,22 @@ public class EscolhaUCsController {
 
         if (curso != null) {
             // Obter as UCs associadas ao curso
-            List<UC> ucsAssociadas = ucDAO.buscarUcsPorCurso(curso.getId());
-            List<UC> todasUCs = ucDAO.buscarTodasUCs(); // Buscar todas as UCs
+            List<UnidadeCurricular> ucsAssociadas = ucDAO.buscarUcsPorCurso(curso.getId());
+            List<UnidadeCurricular> todasUCs = ucDAO.buscarTodasUCs(); // Buscar todas as UCs
 
             // Criar lista completa de UCs (associadas e não associadas)
-            List<UC> listaCompleta = new ArrayList<>(todasUCs);
+            List<UnidadeCurricular> listaCompleta = new ArrayList<>(todasUCs);
 
             // Configurar a ListView com CheckBoxes
             listViewUCs.getItems().setAll(listaCompleta);
             listViewUCs.setCellFactory(new Callback<>() {
                 @Override
-                public ListCell<UC> call(ListView<UC> param) {
+                public ListCell<UnidadeCurricular> call(ListView<UnidadeCurricular> param) {
                     return new ListCell<>() {
                         private final CheckBox checkBox = new CheckBox();
 
                         @Override
-                        protected void updateItem(UC item, boolean empty) {
+                        protected void updateItem(UnidadeCurricular item, boolean empty) {
                             super.updateItem(item, empty);
                             if (item != null) {
                                 checkBox.setText(item.getNome());
@@ -90,15 +90,15 @@ public class EscolhaUCsController {
                 .orElse(null);
 
         if (curso != null) {
-            List<UC> ucsSelecionadas = new ArrayList<>();
-            for (UC uc : listViewUCs.getItems()) {
+            List<UnidadeCurricular> ucsSelecionadas = new ArrayList<>();
+            for (UnidadeCurricular uc : listViewUCs.getItems()) {
                 if (listViewUCs.getSelectionModel().getSelectedItems().contains(uc)) {
                     ucsSelecionadas.add(uc);
                 }
             }
 
             // Salvar as associações entre as UCs selecionadas e o curso
-            for (UC uc : ucsSelecionadas) {
+            for (UnidadeCurricular uc : ucsSelecionadas) {
                 ucDAO.salvarUC(uc.getNome(), curso.getId());
             }
             System.out.println("UCs definidas para o curso " + cursoSelecionado);

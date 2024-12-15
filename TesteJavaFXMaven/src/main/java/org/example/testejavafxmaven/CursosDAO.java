@@ -1,42 +1,28 @@
 package org.example.testejavafxmaven;
 
-import java.util.List;
+import org.example.testejavafxmaven.Cursos;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public interface CursosDAO {
+public class CursosDAO extends GenericDAO<Cursos> {
 
-    /**
-     * Salva um novo curso no banco de dados.
-     *
-     * @param nome O nome do curso a ser salvo.
-     */
-    void salvarCurso(String nome);
+    @Override
+    protected Cursos mapResultSetToEntity(ResultSet rs) throws SQLException {
+        return new Cursos(rs.getInt("id_curso"), rs.getString("nome"));
+    }
 
-    /**
-     * Busca todos os cursos do banco de dados.
-     *
-     * @return Uma lista contendo todos os cursos.
-     */
-    List<Cursos> buscarTodosCursos();
+    public void save(Cursos curso) {
+        String query = "INSERT INTO Cursos (nome) VALUES (?)";
+        executeUpdate(query, curso.getNome());
+    }
 
-    /**
-     * Busca um curso específico pelo ID.
-     *
-     * @param id O ID do curso a ser buscado.
-     * @return O objeto Cursos encontrado, ou null se não existir.
-     */
-    Cursos buscarCursoPorId(int id);
+    public void update(Cursos curso) {
+        String query = "UPDATE Cursos SET nome = ? WHERE id_curso = ?";
+        executeUpdate(query, curso.getNome(), curso.getId());
+    }
 
-    /**
-     * Atualiza as informações de um curso no banco de dados.
-     *
-     * @param curso O objeto Cursos com os dados atualizados.
-     */
-    void atualizarCurso(Cursos curso);
-
-    /**
-     * Exclui um curso do banco de dados pelo ID.
-     *
-     * @param id O ID do curso a ser excluído.
-     */
-    void excluirCurso(int id);
+    public void delete(int id) {
+        String query = "DELETE FROM Cursos WHERE id_curso = ?";
+        executeUpdate(query, id);
+    }
 }

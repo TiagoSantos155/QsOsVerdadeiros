@@ -68,23 +68,32 @@ public class DataBaseConnection {
             stmt.execute(sqlEpocas);
             // No metodo inicializarSchema()
             String sqlCursos = """
-                CREATE TABLE IF NOT EXISTS Cursos (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    nome VARCHAR(100) NOT NULL UNIQUE
+                CREATE TABLE Cursos (
+                    id_curso INT AUTO_INCREMENT PRIMARY KEY,
+                    nome VARCHAR(255) NOT NULL
                 );
             """;
             stmt.execute(sqlCursos);
 
-            String sqlUCs = """
-                CREATE TABLE IF NOT EXISTS UCs (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    nome VARCHAR(100) NOT NULL UNIQUE,
-                    curso_id INT,
-                    FOREIGN KEY (curso_id) REFERENCES Cursos(id) ON DELETE SET NULL
+            String sqlUnidadesCurriculares = """
+                CREATE TABLE UnidadesCurriculares (
+                    id_uc INT AUTO_INCREMENT PRIMARY KEY,
+                    nome VARCHAR(255) NOT NULL,
+                    tipo_avaliacao ENUM('MISTA', 'CONTINUA') NOT NULL -- MISTA ou CONTINUA
                 );
             """;
-            stmt.execute(sqlUCs);
+            stmt.execute(sqlUnidadesCurriculares);
 
+            String sqlCursosUnidadesCurriculares = """
+            CREATE TABLE CursosUnidadesCurriculares (
+                id_curso INT NOT NULL,
+                id_uc INT NOT NULL,
+                PRIMARY KEY (id_curso, id_uc),
+                FOREIGN KEY (id_curso) REFERENCES Cursos(id_curso),
+                FOREIGN KEY (id_uc) REFERENCES UnidadesCurriculares(id_uc)
+            );
+             """;
+            stmt.execute(sqlCursosUnidadesCurriculares);
 
             System.out.println("Esquema do banco de dados inicializado com sucesso.");
 

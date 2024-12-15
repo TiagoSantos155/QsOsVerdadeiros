@@ -27,7 +27,7 @@ public class GerenciadorDeUCsController {
 
     private Stage stage;  // Para armazenar o stage atual
 
-    private UCDAO ucDAO = new UCBD();  // Usando a implementação de UCDAO
+    private UnidadeCurricularDAO ucDAO = new UCBD();  // Usando a implementação de UCDAO
 
     // Método para definir o curso selecionado e carregar suas UCs
     public void setCursoSelecionado(String curso) {
@@ -67,7 +67,7 @@ public class GerenciadorDeUCsController {
 
     // Método para buscar as UCs para o curso selecionado
     private List<CheckBox> getUCsParaCurso(int cursoId) {
-        List<UC> ucs = ucDAO.buscarUcsPorCurso(cursoId);  // Buscar as UCs do banco de dados
+        List<UnidadeCurricular> ucs = ucDAO.buscarUcsPorCurso(cursoId);  // Buscar as UCs do banco de dados
         // Converter as UCs em CheckBoxs para exibição na interface
         return ucs.stream()
                 .map(uc -> new CheckBox(uc.getNome()))

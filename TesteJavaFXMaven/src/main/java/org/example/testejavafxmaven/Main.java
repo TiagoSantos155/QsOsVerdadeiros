@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 
 public class Main extends Application {
 
@@ -49,25 +48,32 @@ public class Main extends Application {
        // utilizadorDAO.salvar(admin);
         //utilizadorDAO.salvar(utilizador);
 
-        // Criar instâncias das classes DAO
-        CursosDAO cursoDAO = new CursosBD();
-        UCDAO ucDAO = new UCBD();
+// Inicializando os DAOs
+        CursosDAO cursoDAO = new CursosDAO();
+        UnidadeCurricularDAO unidadeCurricularDAO = new UnidadeCurricularDAO();
 
-        // Inserir Cursos no Banco de Dados
-        //cursoDAO.salvarCurso("Engenharia Informática");
-        //cursoDAO.salvarCurso("Gestão de Empresas");
+        // Adicionando 5 Cursos
+        System.out.println("Adicionando cursos...");
+        cursoDAO.save(new Cursos(0, "Engenharia Informática"));
+        cursoDAO.save(new Cursos(0, "Engenharia Civil"));
+        cursoDAO.save(new Cursos(0, "Gestão de Empresas"));
+        cursoDAO.save(new Cursos(0, "Design Gráfico"));
+        cursoDAO.save(new Cursos(0, "Biologia"));
 
-        // Inserir Unidades Curriculares no Banco de Dados
-        /**ucDAO.salvarUC("Estruturas de Dados", null);  // null significa que a UC ainda não está associada a nenhum curso
-        ucDAO.salvarUC("Algoritmos", null);
-        ucDAO.salvarUC("Banco de Dados", null);
-        ucDAO.salvarUC("Cálculo I", null);
-        ucDAO.salvarUC("Álgebra Linear", null);
-        ucDAO.salvarUC("Geometria", null);
-        ucDAO.salvarUC("Física Clássica", null);
-        ucDAO.salvarUC("Física Quântica", null);
-        ucDAO.salvarUC("Biologia Geral", null);
-        ucDAO.salvarUC("Genética", null);*/
+        // Adicionando 10 Unidades Curriculares
+        System.out.println("Adicionando unidades curriculares...");
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Programação Avançada", "MISTA"));
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Estruturas de Dados", "CONTINUA"));
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Bases de Dados", "MISTA"));
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Sistemas Operativos", "CONTINUA"));
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Redes de Computadores", "MISTA"));
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Cálculo Diferencial e Integral", "CONTINUA"));
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Mecânica dos Materiais", "MISTA"));
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Marketing Digital", "CONTINUA"));
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Bioquímica", "MISTA"));
+        unidadeCurricularDAO.save(new UnidadeCurricular(0, "Anatomia Humana", "CONTINUA"));
+
+        System.out.println("Cursos e Unidades Curriculares adicionados com sucesso!");
 
         // Launch JavaFX
         launch(args);
