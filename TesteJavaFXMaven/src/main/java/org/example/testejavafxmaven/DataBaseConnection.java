@@ -42,7 +42,7 @@ public class DataBaseConnection {
 
             stmt.execute("CREATE TABLE IF NOT EXISTS Curso (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
-                    "nome VARCHAR(255) NOT NULL," +
+                    "nome VARCHAR(255) NOT NULL UNIQUE," +
                     "numero_alunos INT NOT NULL CHECK (numero_alunos > 0)" +
                     ");");
 
