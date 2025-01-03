@@ -5,8 +5,8 @@ module org.example.testejavafxmaven {
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
 
-    opens org.example.testejavafxmaven to javafx.fxml;
-    exports org.example.testejavafxmaven;
+    opens view to javafx.fxml;
+    exports view;
 
     requires java.sql;
     requires com.h2database;
