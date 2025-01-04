@@ -34,16 +34,26 @@ public class DataBaseConnection {
              Statement stmt = conn.createStatement()) {
 
             // Tabelas
-            stmt.execute("CREATE TABLE IF NOT EXISTS Utilizador (" +
-                    "id INT AUTO_INCREMENT PRIMARY KEY," +
-                    "nome VARCHAR(255) NOT NULL," +
-                    "tipo VARCHAR(50) NOT NULL CHECK (tipo IN ('Administrador', 'CoordenadorCurso'))" +
+            stmt.execute("CREATE TABLE Utilizadores (" +
+                    "    id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "    nome VARCHAR(100) NOT NULL," +
+                    "    tipo VARCHAR(20) NOT NULL CHECK (tipo IN ('Administrador', 'Coordenador'))," +
+                    "    email VARCHAR(100) NOT NULL UNIQUE," +
+                    "    senha VARCHAR(100) NOT NULL" +
                     ");");
 
             stmt.execute("CREATE TABLE IF NOT EXISTS Curso (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
                     "nome VARCHAR(255) NOT NULL UNIQUE," +
                     "numero_alunos INT NOT NULL CHECK (numero_alunos > 0)" +
+                    ");");
+
+            stmt.execute("CREATE TABLE CoordenadorCurso (" +
+                    "    id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "    utilizador_id INT NOT NULL UNIQUE," +
+                    "    curso_id INT NOT NULL," +
+                    "    FOREIGN KEY (utilizador_id) REFERENCES Utilizadores(id)," +
+                    "    FOREIGN KEY (curso_id) REFERENCES Cursos(id)" +
                     ");");
 
             stmt.execute("CREATE TABLE IF NOT EXISTS UC (" +

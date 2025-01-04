@@ -1,0 +1,99 @@
+.root {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-background-color: #f4f4f4;
+}
+
+/* Estilo para o título */
+.titulo-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2a73cc;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0, 2, 2);
+    -fx-text-alignment: center;
+}
+
+/* Estilo da Tabela */
+.table-view {
+    -fx-border-color: #cccccc;
+    -fx-background-color: #ffffff;
+    -fx-padding: 10;
+    -fx-border-radius: 5;
+}
+
+.table-view .column-header {
+    -fx-background-color: #2a73cc;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.table-view .table-row-cell:even {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #ffffff;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #eaf4fc;
+}
+
+/* Botões */
+.button {
+    -fx-background-radius: 5;
+    -fx-padding: 8 15;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+.button:hover {
+    -fx-background-color: #2a73cc;
+    -fx-text-fill: white;
+}
+
+/* Estilo específico dos botões */
+.botao-adicionar {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+}
+
+.botao-adicionar:hover {
+    -fx-background-color: #218838;
+}
+
+.botao-editar {
+    -fx-background-color: #ffc107;
+    -fx-text-fill: black;
+}
+
+.botao-editar:hover {
+    -fx-background-color: #ffb300;
+}
+
+.botao-deletar {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+}
+
+.botao-deletar:hover {
+    -fx-background-color: #c82333;
+}
+
+/* Campos de texto */
+.text-field {
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-transition: all 0.3s ease;
+}
+
+.text-field:focused {
+    -fx-border-color: #2a73cc;
+    -fx-effect: dropshadow(gaussian, rgba(42, 115, 204, 0.5), 5, 0, 0, 2);
+}
