@@ -121,7 +121,7 @@ public class CursoApp extends Application {
 
         // Configurar cena
         Scene scene = new Scene(root, 800, 500);
-        scene.getStylesheets().add(getClass().getResource("/org/cursoStyles/cursoStyles.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/org/Styles/cursoStyles.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Gestão de Cursos");
         stage.show();
