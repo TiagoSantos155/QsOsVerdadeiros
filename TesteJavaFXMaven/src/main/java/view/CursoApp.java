@@ -1,6 +1,8 @@
 package view;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,12 +16,14 @@ import service.CursoService;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CursoApp extends Application {
     private CursoService cursoService;
     private TableView<Curso> table;
     private TextField txtNome;
     private TextField txtNumeroAlunos;
+    private TextField txtFiltro; // Campo de busca
 
     public static void main(String[] args) {
         launch(args);
@@ -36,8 +40,7 @@ public class CursoApp extends Application {
         root.setPadding(new Insets(10));
 
         // Cabeçalho
-        Label lblTitulo = new Label("Gestão de Cursos");
-        lblTitulo.getStyleClass().add("titulo-label");
+        Label lblTitulo = criarTitulo("Gestão de Cursos");
         VBox header = new VBox(lblTitulo);
         header.setAlignment(Pos.CENTER);
 
@@ -58,17 +61,31 @@ public class CursoApp extends Application {
 
         Button btnSalvar = new Button("Salvar Curso");
         btnSalvar.getStyleClass().add("botao-salvar");
-        btnSalvar.setOnAction(e -> salvarCurso());
+        btnSalvar.setOnAction(e -> {
+            if (validarCampos()) salvarCurso();
+        });
 
         formulario.getChildren().addAll(lblNome, txtNome, lblNumeroAlunos, txtNumeroAlunos, btnSalvar);
+
+        // Campo de busca
+        HBox buscaBox = new HBox(10);
+        buscaBox.setPadding(new Insets(10));
+        buscaBox.setAlignment(Pos.CENTER);
+
+        txtFiltro = new TextField();
+        txtFiltro.setPromptText("Buscar cursos...");
+        txtFiltro.getStyleClass().add("text-field");
+        txtFiltro.textProperty().addListener((obs, oldVal, newVal) -> filtrarCursos(newVal));
+
+        buscaBox.getChildren().add(txtFiltro);
 
         // Tabela
         table = new TableView<>();
         TableColumn<Curso, String> colNome = new TableColumn<>("Nome");
-        colNome.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNome()));
+        colNome.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNome()));
 
         TableColumn<Curso, Integer> colNumeroAlunos = new TableColumn<>("Número de Alunos");
-        colNumeroAlunos.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getNumeroAlunos()).asObject());
+        colNumeroAlunos.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getNumeroAlunos()).asObject());
 
         table.getColumns().addAll(colNome, colNumeroAlunos);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -85,7 +102,9 @@ public class CursoApp extends Application {
 
         Button btnDeletar = new Button("Deletar Curso");
         btnDeletar.getStyleClass().add("botao-deletar");
-        btnDeletar.setOnAction(e -> deletarCurso());
+        btnDeletar.setOnAction(e -> {
+            if (confirmarAcao("Tem certeza de que deseja excluir este curso?")) deletarCurso();
+        });
 
         Button btnCarregar = new Button("Carregar Cursos");
         btnCarregar.getStyleClass().add("botao-carregar");
@@ -98,6 +117,7 @@ public class CursoApp extends Application {
         root.setLeft(formulario);
         root.setCenter(table);
         root.setBottom(botoes);
+        root.setTop(buscaBox);
 
         // Configurar cena
         Scene scene = new Scene(root, 800, 500);
@@ -108,6 +128,37 @@ public class CursoApp extends Application {
 
         // Carregar cursos no início
         carregarCursos();
+    }
+
+    private Label criarTitulo(String texto) {
+        Label titulo = new Label(texto);
+        titulo.getStyleClass().add("titulo-label");
+        return titulo;
+    }
+
+    private boolean validarCampos() {
+        if (txtNome.getText().isEmpty()) {
+            mostrarAlerta("Erro de Validação", "O nome do curso não pode estar vazio.");
+            return false;
+        }
+        try {
+            int numeroAlunos = Integer.parseInt(txtNumeroAlunos.getText());
+            if (numeroAlunos < 0) {
+                mostrarAlerta("Erro de Validação", "O número de alunos deve ser um valor positivo.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Erro de Validação", "Número de alunos deve ser um número válido.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean confirmarAcao(String mensagem) {
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, mensagem, ButtonType.YES, ButtonType.NO);
+        confirm.setTitle("Confirmação");
+        confirm.showAndWait();
+        return confirm.getResult() == ButtonType.YES;
     }
 
     private void salvarCurso() {
@@ -126,8 +177,6 @@ public class CursoApp extends Application {
 
             carregarCursos();
             limparCampos();
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Erro", "Número de alunos deve ser um número válido.");
         } catch (Exception e) {
             mostrarAlerta("Erro", e.getMessage());
         }
@@ -164,6 +213,19 @@ public class CursoApp extends Application {
             table.getItems().setAll(cursos);
         } catch (SQLException e) {
             mostrarAlerta("Erro ao Carregar Cursos", e.getMessage());
+        }
+    }
+
+    private void filtrarCursos(String filtro) {
+        try {
+            List<Curso> cursos = cursoService.listarCursos();
+            table.getItems().setAll(
+                    cursos.stream()
+                            .filter(curso -> curso.getNome().toLowerCase().contains(filtro.toLowerCase()))
+                            .collect(Collectors.toList())
+            );
+        } catch (SQLException e) {
+            mostrarAlerta("Erro ao Filtrar Cursos", e.getMessage());
         }
     }
 
