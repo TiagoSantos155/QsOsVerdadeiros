@@ -1,0 +1,21 @@
+.root {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-background-color: #f4f4f4;
+}
+
+.label {
+    -fx-text-fill: #333333;
+}
+
+.text-field, .password-field {
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #2a73cc;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(42,115,204,0.5), 5, 0, 0, 1);
+}

@@ -5,10 +5,11 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import modelo.Utilizador;
 import org.example.testejavafxmaven.DataBaseConnection;
@@ -45,6 +46,7 @@ public class GestaoUtilizadores extends Application {
 
         table.getColumns().addAll(colId, colNome, colTipo, colEmail);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.getStyleClass().add("table-view");
 
         // Carregar Dados na Tabela
         carregarDados();
@@ -54,13 +56,8 @@ public class GestaoUtilizadores extends Application {
         lblTitulo.getStyleClass().add("titulo-label");
 
         // Botões de Ação
-        Button btnAdicionar = new Button("Adicionar");
-        btnAdicionar.getStyleClass().add("botao-adicionar");
-        btnAdicionar.setOnAction(e -> abrirFormulario(null));
-
-        Button btnEditar = new Button("Editar");
-        btnEditar.getStyleClass().add("botao-editar");
-        btnEditar.setOnAction(e -> {
+        Button btnAdicionar = criarBotao("Adicionar", "botao-adicionar", e -> abrirFormulario(null));
+        Button btnEditar = criarBotao("Editar", "botao-editar", e -> {
             Utilizador selecionado = table.getSelectionModel().getSelectedItem();
             if (selecionado != null) {
                 abrirFormulario(selecionado);
@@ -68,10 +65,7 @@ public class GestaoUtilizadores extends Application {
                 mostrarErro("Seleção Inválida", "Nenhum utilizador selecionado para editar.");
             }
         });
-
-        Button btnExcluir = new Button("Deletar");
-        btnExcluir.getStyleClass().add("botao-deletar");
-        btnExcluir.setOnAction(e -> {
+        Button btnExcluir = criarBotao("Deletar", "botao-deletar", e -> {
             Utilizador selecionado = table.getSelectionModel().getSelectedItem();
             if (selecionado != null) {
                 excluirUtilizador(selecionado);
@@ -79,19 +73,35 @@ public class GestaoUtilizadores extends Application {
                 mostrarErro("Seleção Inválida", "Nenhum utilizador selecionado para excluir.");
             }
         });
+        Button btnVoltar = criarBotao("Voltar", "botao-voltar", e -> {
+            try {
+                new AdminDashboard().start(stage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
 
-        VBox botoes = new VBox(10, btnAdicionar, btnEditar, btnExcluir);
+        HBox botoes = new HBox(10, btnAdicionar, btnEditar, btnExcluir, btnVoltar);
+        botoes.setAlignment(Pos.CENTER);
         botoes.setPadding(new Insets(10));
 
         // Layout Principal
-        VBox root = new VBox(10, lblTitulo, table, botoes);
-        root.setPadding(new Insets(10));
+        VBox root = new VBox(15, lblTitulo, table, botoes);
+        root.setPadding(new Insets(20));
+        root.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, 900, 600);
         scene.getStylesheets().add(getClass().getResource("/org/styles/gestaoUtilizadores.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Gestão de Utilizadores");
         stage.show();
+    }
+
+    private Button criarBotao(String texto, String estilo, javafx.event.EventHandler<javafx.event.ActionEvent> acao) {
+        Button botao = new Button(texto);
+        botao.getStyleClass().add(estilo);
+        botao.setOnAction(acao);
+        return botao;
     }
 
     private void carregarDados() {
@@ -107,43 +117,29 @@ public class GestaoUtilizadores extends Application {
         Stage formularioStage = new Stage();
         formularioStage.setTitle(utilizador == null ? "Adicionar Utilizador" : "Editar Utilizador");
 
-        // Campos do Formulário
+        // Título estilizado
         Label lblTitulo = new Label(utilizador == null ? "Adicionar Utilizador" : "Editar Utilizador");
-        lblTitulo.getStyleClass().add("titulo-label");
+        lblTitulo.getStyleClass().add("form-container-title");
 
-        TextField txtNome = new TextField();
-        txtNome.getStyleClass().add("text-field");
-        txtNome.setPromptText("Nome");
+        // Campos do formulário estilizados
+        TextField txtNome = criarCampoTexto("Nome", utilizador == null ? "" : utilizador.getNome());
 
-        ComboBox<String> cmbTipo = new ComboBox<>();
-        cmbTipo.getStyleClass().add("text-field");
-        cmbTipo.getItems().addAll("Administrador", "Coordenador");
-        cmbTipo.setPromptText("Tipo");
+        ComboBox<String> cmbTipo = new ComboBox<>(FXCollections.observableArrayList("Administrador", "Coordenador"));
+        cmbTipo.setPromptText("Tipo Utilizador");
+        cmbTipo.setValue(utilizador == null ? null : utilizador.getTipo());
 
-        TextField txtEmail = new TextField();
-        txtEmail.getStyleClass().add("text-field");
-        txtEmail.setPromptText("E-mail");
-
+        TextField txtEmail = criarCampoTexto("E-mail", utilizador == null ? "" : utilizador.getEmail());
         PasswordField txtSenha = new PasswordField();
-        txtSenha.getStyleClass().add("text-field");
         txtSenha.setPromptText("Senha");
+        if (utilizador != null) txtSenha.setText(utilizador.getSenha());
 
-        if (utilizador != null) {
-            txtNome.setText(utilizador.getNome());
-            cmbTipo.setValue(utilizador.getTipo());
-            txtEmail.setText(utilizador.getEmail());
-            txtSenha.setText(utilizador.getSenha()); // Nota: Em produção, normalmente não exibe a senha
-        }
-
-        Button btnSalvar = new Button("Salvar");
-        btnSalvar.getStyleClass().add("botao-adicionar");
-        btnSalvar.setOnAction(e -> {
+        // Botão salvar estilizado
+        Button btnSalvar = criarBotao("Salvar", "form-button", e -> {
             String nome = txtNome.getText().trim();
             String tipo = cmbTipo.getValue();
             String email = txtEmail.getText().trim();
             String senha = txtSenha.getText().trim();
 
-            // Validações
             if (nome.isEmpty() || tipo == null || email.isEmpty() || senha.isEmpty()) {
                 mostrarErro("Validação", "Todos os campos devem ser preenchidos.");
                 return;
@@ -151,11 +147,9 @@ public class GestaoUtilizadores extends Application {
 
             try {
                 if (utilizador == null) {
-                    // Adicionar novo utilizador
                     utilizadorService.salvarUtilizador(nome, tipo, email, senha);
                     mostrarAlerta("Sucesso", "Utilizador adicionado com sucesso.");
                 } else {
-                    // Atualizar utilizador existente
                     utilizadorService.atualizarUtilizador(utilizador.getId(), nome, tipo, email, senha);
                     mostrarAlerta("Sucesso", "Utilizador atualizado com sucesso.");
                 }
@@ -166,16 +160,22 @@ public class GestaoUtilizadores extends Application {
             }
         });
 
-        VBox formulario = new VBox(10, lblTitulo, new Label("Nome:"), txtNome,
-                new Label("Tipo:"), cmbTipo,
-                new Label("E-mail:"), txtEmail,
-                new Label("Senha:"), txtSenha,
-                btnSalvar);
-        formulario.setPadding(new Insets(10));
+        VBox formulario = new VBox(20, lblTitulo, txtNome, cmbTipo, txtEmail, txtSenha, btnSalvar);
+        formulario.setPadding(new Insets(30));
+        formulario.setAlignment(Pos.CENTER);
+        formulario.getStyleClass().add("form-container");
 
-        Scene scene = new Scene(formulario, 300, 400);
+        Scene scene = new Scene(formulario, 450, 500);
+        scene.getStylesheets().add(getClass().getResource("/org/styles/formularioUtilizador.css").toExternalForm());
         formularioStage.setScene(scene);
         formularioStage.show();
+    }
+
+    private TextField criarCampoTexto(String prompt, String valorInicial) {
+        TextField campo = new TextField(valorInicial);
+        campo.setPromptText(prompt);
+        campo.getStyleClass().add("form-input");
+        return campo;
     }
 
     private void excluirUtilizador(Utilizador utilizador) {

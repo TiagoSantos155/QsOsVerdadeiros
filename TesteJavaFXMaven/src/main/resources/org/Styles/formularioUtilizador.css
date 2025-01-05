@@ -1,0 +1,83 @@
+/* formularioUtilizador.css */
+
+/* Estilo geral para o formulário */
+.form-container {
+    -fx-padding: 30px;
+    -fx-background-color: #ffffff; /* Fundo claro e limpo */
+    -fx-border-color: #e0e4eb;
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 12, 0, 0, 4); /* Sombra mais suave */
+}
+
+/* Estilo para os rótulos (labels) do formulário */
+.form-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2c3e50; /* Cor mais sofisticada */
+    -fx-font-weight: bold;
+    -fx-padding: 6px 0;
+}
+
+/* Estilo para os campos de entrada do formulário */
+.form-input {
+    -fx-background-color: #f9f9fb; /* Fundo ligeiramente diferente para destacar */
+    -fx-border-color: #d1d9e6;
+    -fx-border-radius: 8px;
+    -fx-padding: 12px;
+    -fx-font-size: 15px;
+    -fx-text-fill: #2c3e50; /* Tom consistente com os rótulos */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 4, 0, 0, 2);
+    -fx-background-insets: 0;
+    -fx-transition: 0.2s ease-in-out; /* Transição suave */
+}
+
+.form-input:focused {
+    -fx-border-color: #0078d7; /* Azul vibrante para foco */
+    -fx-effect: dropshadow(gaussian, rgba(0, 120, 215, 0.4), 6, 0, 0, 2);
+}
+
+/* Estilo para botões do formulário */
+.form-button {
+    -fx-background-color: linear-gradient(to bottom, #4caf50, #3a8e3a); /* Gradiente sutil */
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-padding: 14px 28px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0, 0, 3);
+    -fx-cursor: hand;
+    -fx-transition: 0.2s ease-in-out; /* Transição para hover */
+}
+
+.form-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #45a149, #2f7d32); /* Tom mais escuro no hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 4);
+    /* Remover ou ajustar -fx-transform */
+    /* -fx-transform: scale(1.02); */
+}
+
+
+.form-button:disabled {
+    -fx-background-color: #e4e4e4;
+    -fx-text-fill: #a8a8a8;
+    -fx-cursor: not-allowed;
+    -fx-effect: none;
+}
+
+/* Ajuste nos espaçamentos */
+.form-row {
+    -fx-padding: 12px 0;
+}
+
+/* Estilo adicional para realce */
+.form-container-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e; /* Título em tom profissional */
+    -fx-padding: 0 0 20px 0;
+    -fx-border-color: #d1d9e6;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-style: solid;
+}
