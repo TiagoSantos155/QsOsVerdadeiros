@@ -1,0 +1,9 @@
+/* gestaoSemestresEpocas.css */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}

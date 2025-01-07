@@ -42,7 +42,7 @@ public class AdminDashboard extends Application {
         btnGestaoEpocas.setOnAction(e -> {
             try {
                 // Substituir pela lógica correta para gerir épocas e semestres
-                // new GestaoEpocasESemestre().start(stage);
+                new GestaoEpocas().start(stage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
